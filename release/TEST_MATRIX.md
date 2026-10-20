@@ -43,7 +43,7 @@ in Android Studio's Device Manager or in CI with an emulator matrix:
 | 23 | 6.0 | Last version without v2-only behaviour | Install and update over an older build |
 | 26 | 8.0 | First adaptive icon | Launcher icon shape |
 | 29 | 10 | Scoped storage; CSV export through the share sheet | Export CSV |
-| 31 | 12 | System splash screen API | Splash shows icon on brand blue |
+| 31–32 | 12 / 12L | System splash screen API; two panes (CI runs API 32, as the API 31 image does not boot on GitHub runners) | Splash shows icon on brand blue |
 | 33 | 13 | Themed (monochrome) icon; per-app language entry | Enable themed icons; Settings > Apps > Language lists English |
 | 34 | 14 | Predictive back (`enableOnBackInvokedCallback`) | Back gesture from every screen |
 | 35/36 | 15/16 | Forced edge-to-edge; keyboard insets | Text fields stay above the keyboard; nothing under the status bar |

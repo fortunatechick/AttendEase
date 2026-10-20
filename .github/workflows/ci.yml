@@ -59,7 +59,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        api: [21, 23, 26, 29, 31, 33, 35]
+        # 31 is skipped: its emulator image fails to boot on GitHub runners; 32 (12L) covers Android 12.
+        api: [21, 23, 26, 29, 32, 33, 35]
     steps:
       - uses: actions/checkout@v4
 
