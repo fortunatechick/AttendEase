@@ -1,0 +1,24 @@
+name: Feature request
+description: An idea to make AttendEase more useful
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        AttendEase stays **offline** (no internet permission), sends **no notifications**, and keeps the attendance maths predictable. Ideas that need a server, an account or tracking can't be accepted.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem would it solve?
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: What would you like to happen?
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Anything else you've considered?

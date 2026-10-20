@@ -41,7 +41,7 @@ public class AttendanceParser {
             + "(?!AM\\b|PM\\b)([A-Z]{1,3})\\s*$");
 
     // Component marker: T1 theory, P1 practical, TU1 tutorial (counted with theory).
-    // No trailing \b: "...LaGrT1BTC5C" has the batch glued straight on.
+    // No trailing \b: "...LaGrT1BTC5A" has the batch glued straight on.
     private static final Pattern MARKER = Pattern.compile("\\s*(TU|T|P)(\\d+)");
 
     private static final Pattern STUDENT_NAME = Pattern.compile("^\\s*Student Name\\s+(.+?)\\s*$");

@@ -1,0 +1,20 @@
+AttendEase reads the attendance report PDF from your college's SAP student portal and shows, subject by subject, where you stand against your attendance rule and how many lectures you can still miss this semester.
+
+<b>Features</b>
+<ul>
+<li>Upload the report PDF and check a review screen before anything is saved</li>
+<li>Per-subject attendance, theory and practical merged and shown separately</li>
+<li>Semester absence budget: "You can miss 3 more this semester"</li>
+<li>Medical-leave tracking, with the range your figure will fall in until the college decides</li>
+<li>Safe re-uploads: a newer PDF updates what changed and never overwrites what you recorded</li>
+<li>Add subjects and lectures by hand; works for any programme and semester</li>
+<li>Guest mode for a friend, kept separate and erased afterwards</li>
+<li>CSV export that opens in Excel</li>
+<li>Phones, tablets, foldables and Chromebooks; large text, TalkBack, right-to-left and dark mode</li>
+</ul>
+
+<b>Privacy</b>
+No permissions at all: no internet access, no notifications, no accounts, no ads, no analytics. Your data never leaves your phone unless you share an export.
+
+<b>Unofficial</b>
+AttendEase is an independent student project, not made or endorsed by SVKM's NMIMS, SAP or any college. Its figures are estimates; your college's records decide.

@@ -1,0 +1,1 @@
+First public release: upload the SAP attendance PDF, per-subject figures, semester absence budget, medical-leave tracking, guest mode and CSV export. Fully offline, no permissions. Works on Android 5.0+, tablets and foldables.

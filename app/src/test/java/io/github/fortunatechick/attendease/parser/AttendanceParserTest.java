@@ -26,40 +26,40 @@ public class AttendanceParserTest {
             "Sr \n" +
             "No. Course Name Date Start Time End Time Attenda\n" +
             "nce\n" +
-            "1 Operating SystemsT1 BT CE C Jul 13, 2026 12:00:01 PM 1:00:00 PM P\n" +
-            "2 Artificial Intelligence T1  B Tech CE C Jul 13, 2026 2:00:01 PM 3:00:00 PM P\n" +
+            "1 Operating SystemsT1 BT IT A Jul 13, 2026 12:00:01 PM 1:00:00 PM P\n" +
+            "2 Artificial Intelligence T1  B Tech IT A Jul 13, 2026 2:00:01 PM 3:00:00 PM P\n" +
             "3 Research MethodologyT1-OE1-V Jul 13, 2026 4:00:01 PM 5:00:00 PM A\n" +
             "4 Research MethodologyT1-OE1-V Jul 13, 2026 5:00:01 PM 6:00:00 PM A\n" +
-            "5 RAG Sys&Agen WorkflowithPine&LaGrT1BTC5C Jul 14, 2026 7:00:01 AM 8:00:00 AM P\n" +
-            "6 Software EngineeringT1 BT CE C Jul 14, 2026 10:00:01 AM 11:00:00 AM P\n" +
-            "7 Image and Video ProcessingT1 BTech CE C Jul 14, 2026 11:00:01 AM 12:00:00 PM E\n" +
-            "8 Artificial Intelligence T1  B Tech CE C Jul 14, 2026 12:00:01 PM 1:00:00 PM L\n" +
+            "5 RAG Sys&Agen WorkflowithPine&LaGrT1BTC5A Jul 14, 2026 7:00:01 AM 8:00:00 AM P\n" +
+            "6 Software EngineeringT1 BT IT A Jul 14, 2026 10:00:01 AM 11:00:00 AM P\n" +
+            "7 Image and Video ProcessingT1 BTech IT A Jul 14, 2026 11:00:01 AM 12:00:00 PM E\n" +
+            "8 Artificial Intelligence T1  B Tech IT A Jul 14, 2026 12:00:01 PM 1:00:00 PM L\n" +
             "9 Research MethodologyT1-OE1-V Jul 14, 2026 4:00:01 PM 5:00:00 PM A\n" +
-            "10 RAG Sys&Agen WorkflowithPine&LaGrT1BTC5C Jul 15, 2026 7:00:01 AM 8:00:00 AM P\n" +
-            "11 Artificial Intelligence P1 BT CE C C2 Jul 15, 2026 8:00:01 AM 9:00:00 AM P\n" +
-            "12 Artificial Intelligence P1 BT CE C C2 Jul 15, 2026 9:00:01 AM 10:00:00 AM A\n" +
-            "13 Mobile Application DevelopP1 BT CE B2+C2 Jul 15, 2026 10:00:01 AM 11:00:00 AM P\n" +
-            "14 Mobile Application DevelopP1 BT CE B2+C2 Jul 15, 2026 11:00:01 AM 12:00:00 PM A\n" +
+            "10 RAG Sys&Agen WorkflowithPine&LaGrT1BTC5A Jul 15, 2026 7:00:01 AM 8:00:00 AM P\n" +
+            "11 Artificial Intelligence P1 BT IT A A2 Jul 15, 2026 8:00:01 AM 9:00:00 AM P\n" +
+            "12 Artificial Intelligence P1 BT IT A A2 Jul 15, 2026 9:00:01 AM 10:00:00 AM A\n" +
+            "13 Mobile Application DevelopP1 BT IT A1+A2 Jul 15, 2026 10:00:01 AM 11:00:00 AM P\n" +
+            "14 Mobile Application DevelopP1 BT IT A1+A2 Jul 15, 2026 11:00:01 AM 12:00:00 PM A\n" +
             "Page 1 of 16\n" +
             "Sr \n" +
             "No. Course Name Date Start Time End Time Attenda\n" +
             "nce\n" +
-            "15 Operating SystemsP1 BT CE C C2 Jul 15, 2026 2:00:01 PM 3:00:00 PM P\n" +
-            "16 Operating SystemsP1 BT CE C C2 Jul 15, 2026 3:00:01 PM 4:00:00 PM P\n" +
-            "17 Mobile Application DevelopmentT1 BT CE C Jul 16, 2026 10:00:01 AM 11:00:00 AM P\n" +
-            "18 Operating SystemsT1 BT CE C Jul 16, 2026 11:00:01 AM 12:00:00 PM A\n" +
+            "15 Operating SystemsP1 BT IT A A2 Jul 15, 2026 2:00:01 PM 3:00:00 PM P\n" +
+            "16 Operating SystemsP1 BT IT A A2 Jul 15, 2026 3:00:01 PM 4:00:00 PM P\n" +
+            "17 Mobile Application DevelopmentT1 BT IT A Jul 16, 2026 10:00:01 AM 11:00:00 AM P\n" +
+            "18 Operating SystemsT1 BT IT A Jul 16, 2026 11:00:01 AM 12:00:00 PM A\n" +
             "19 Financial DerT1-OE 2-B Tech & MBA-DIV A Jul 16, 2026 4:00:01 PM 5:00:00 PM P\n" +
             "20 Financial DerT1-OE 2-B Tech & MBA-DIV A Jul 16, 2026 5:00:01 PM 6:00:00 PM A\n" +
-            "21 Image and Video ProcessingP1 BT CE C2 Jul 17, 2026 10:00:01 AM 11:00:00 AM P\n" +
-            "22 Image and Video ProcessingP1 BT CE C2 Jul 17, 2026 11:00:01 AM 12:00:00 PM P\n" +
-            "23 Software EngineeringT1 BT CE C Jul 17, 2026 1:00:01 PM 2:00:00 PM P\n" +
-            "24 Software EngineeringP1 B Tech CE C C2 Jul 17, 2026 2:00:01 PM 3:00:00 PM P\n" +
-            "25 Software EngineeringP1 B Tech CE C C2 Jul 17, 2026 3:00:01 PM 4:00:00 PM A\n" +
-            "26 Mobile Application DevelopmentT1 BT CE C Jul 20, 2026 10:00:01 AM 11:00:00 AM NU\n" +
-            "27 Artificial Intelligence T1  B Tech CE C Jul 20, 2026 2:00:01 PM 3:00:00 PM NU\n" +
-            "28 Operating SystemsT1 BT CE C Jul 20, 2026 3:00:01 PM 4:00:00 PM E\n" +
+            "21 Image and Video ProcessingP1 BT IT A2 Jul 17, 2026 10:00:01 AM 11:00:00 AM P\n" +
+            "22 Image and Video ProcessingP1 BT IT A2 Jul 17, 2026 11:00:01 AM 12:00:00 PM P\n" +
+            "23 Software EngineeringT1 BT IT A Jul 17, 2026 1:00:01 PM 2:00:00 PM P\n" +
+            "24 Software EngineeringP1 B Tech IT A A2 Jul 17, 2026 2:00:01 PM 3:00:00 PM P\n" +
+            "25 Software EngineeringP1 B Tech IT A A2 Jul 17, 2026 3:00:01 PM 4:00:00 PM A\n" +
+            "26 Mobile Application DevelopmentT1 BT IT A Jul 20, 2026 10:00:01 AM 11:00:00 AM NU\n" +
+            "27 Artificial Intelligence T1  B Tech IT A Jul 20, 2026 2:00:01 PM 3:00:00 PM NU\n" +
+            "28 Operating SystemsT1 BT IT A Jul 20, 2026 3:00:01 PM 4:00:00 PM E\n" +
             "29 Research MethodologyT1-OE1-V Jul 20, 2026 4:00:01 PM 5:00:00 PM NU\n" +
-            "30 Mobile Application DevelopmentT1 BT CE C Jul 21, 2026 12:00:01 PM 1:00:00 PM P\n" +
+            "30 Mobile Application DevelopmentT1 BT IT A Jul 21, 2026 12:00:01 PM 1:00:00 PM P\n" +
             "P - Present : A - Absent : E - Exemption : L - Late Admission : NU - Not Updated\n" +
             "Above data is viewed as per attendance data in the SAP system. Please contact college admin staff for any \n" +
             "attendance related query.\n" +
@@ -111,11 +111,11 @@ public class AttendanceParserTest {
     // Rule 2: glued, spaced, and glued-on-both-sides markers.
     @Test
     public void splitsCourseNameOnTheoryPracticalMarker() {
-        assertParts("Operating SystemsT1 BT CE C", "Operating Systems", "T", "BT CE C");
-        assertParts("Artificial Intelligence T1  B Tech CE C", "Artificial Intelligence", "T", "B Tech CE C");
-        assertParts("Operating SystemsP1 BT CE C C2", "Operating Systems", "P", "BT CE C C2");
+        assertParts("Operating SystemsT1 BT IT A", "Operating Systems", "T", "BT IT A");
+        assertParts("Artificial Intelligence T1  B Tech IT A", "Artificial Intelligence", "T", "B Tech IT A");
+        assertParts("Operating SystemsP1 BT IT A A2", "Operating Systems", "P", "BT IT A A2");
         assertParts("Research MethodologyT1-OE1-V", "Research Methodology", "T", "OE1-V");
-        assertParts("RAG Sys&Agen WorkflowithPine&LaGrT1BTC5C", "RAG Sys&Agen WorkflowithPine&LaGr", "T", "BTC5C");
+        assertParts("RAG Sys&Agen WorkflowithPine&LaGrT1BTC5A", "RAG Sys&Agen WorkflowithPine&LaGr", "T", "BTC5A");
         assertParts("Financial DerT1-OE 2-B Tech & MBA-DIV A", "Financial Der", "T", "OE 2-B Tech & MBA-DIV A");
         assertParts("Some Manual Subject", "Some Manual Subject", "T", "");
     }
@@ -173,7 +173,7 @@ public class AttendanceParserTest {
     @Test
     public void reportsGapInSerialNumbers() {
         String withGap = FIXTURE.replace(
-                "12 Artificial Intelligence P1 BT CE C C2 Jul 15, 2026 9:00:01 AM 10:00:00 AM A\n", "");
+                "12 Artificial Intelligence P1 BT IT A A2 Jul 15, 2026 9:00:01 AM 10:00:00 AM A\n", "");
         ParseResult result = parser.parse(withGap);
         assertEquals(29, result.records.size());
         assertEquals(Collections.singletonList(12), result.missingSrNos);
@@ -192,7 +192,7 @@ public class AttendanceParserTest {
 
     @Test
     public void toleratesSingleSpacesAndGluedMeridiem() {
-        String line = "1 Operating SystemsT1 BT CE C Jul 13,2026 12:00:01PM 1:00:00PM P";
+        String line = "1 Operating SystemsT1 BT IT A Jul 13,2026 12:00:01PM 1:00:00PM P";
         ParseResult result = parser.parse(line);
         assertEquals(1, result.records.size());
         assertEquals("Jul 13, 2026", result.records.get(0).dateText);
