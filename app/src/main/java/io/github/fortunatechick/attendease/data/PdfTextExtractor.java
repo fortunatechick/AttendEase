@@ -61,6 +61,9 @@ public class PdfTextExtractor {
             throw new ImportException(Reason.NOT_PDF);
         } catch (OutOfMemoryError e) {
             throw new ImportException(Reason.OUT_OF_MEMORY);
+        } catch (StackOverflowError e) {
+            // A deeply nested or looping PDF structure; never let it crash the app.
+            throw new ImportException(Reason.NOT_PDF);
         } finally {
             if (copy != null && !copy.delete()) copy.deleteOnExit();
         }

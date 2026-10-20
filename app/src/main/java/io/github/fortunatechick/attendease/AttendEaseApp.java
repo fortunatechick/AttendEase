@@ -5,6 +5,7 @@ import android.os.StrictMode;
 
 import io.github.fortunatechick.attendease.data.DataChanges;
 import io.github.fortunatechick.attendease.data.GuestMode;
+import io.github.fortunatechick.attendease.data.PdfFonts;
 import com.tom_roush.pdfbox.android.PDFBoxResourceLoader;
 
 public class AttendEaseApp extends Application {
@@ -24,6 +25,7 @@ public class AttendEaseApp extends Application {
         GuestMode.endIfAbandoned(this);
         ThemeMode.apply(this);
         PDFBoxResourceLoader.init(getApplicationContext());
+        PdfFonts.install();
         DataChanges.watchPrefs(this);
         TwoPane.install(this);
     }

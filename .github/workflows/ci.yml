@@ -80,8 +80,11 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: ${{ matrix.api }}
-          target: ${{ matrix.api >= 31 && 'google_apis' || 'default' }}
+          # Plain AOSP images boot fastest; API 35 only ships reliably as google_apis.
+          target: ${{ matrix.api >= 35 && 'google_apis' || 'default' }}
           arch: x86_64
+          ram-size: 2048M
+          emulator-boot-timeout: 900
           disable-animations: true
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -no-snapshot
           script: ./gradlew --no-daemon connectedDebugAndroidTest

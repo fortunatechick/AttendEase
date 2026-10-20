@@ -29,6 +29,7 @@ AttendEase supports **Android 5.0 (API 21) through Android 16 (API 36)**, one un
 | Crash report: `am crash`, relaunch shows *AttendEase closed unexpectedly* with *Copy crash report* | Emulator | Pass |
 | Another app sends `file:///data/data/<app>/databases/attendease.db` to the upload screen: refused, normal picker opens instead | Emulator | Pass |
 | First launch after clearing data: welcome dialog with the disclaimer; About screen | Emulator | Pass |
+| **CI device matrix found a real bug:** on Android 5.0 and 6.0 every upload failed (PdfBox-Android's system-font scan overflows the stack). Fixed with `PdfFonts` (bundled font on Android < 8.0); `bundledFontMapperExtractsTheSameText` proves the text is identical | CI emulators API 21/23; local API 37.1 | Fixed; re-run in CI |
 
 ## Not run locally (owner / CI to cover)
 

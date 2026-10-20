@@ -8,6 +8,10 @@ import androidx.test.platform.app.InstrumentationRegistry;
 
 import com.tom_roush.pdfbox.android.PDFBoxResourceLoader;
 
+import com.tom_roush.pdfbox.pdmodel.font.FontMapper;
+import com.tom_roush.pdfbox.pdmodel.font.FontMappers;
+
+import io.github.fortunatechick.attendease.data.PdfFonts;
 import io.github.fortunatechick.attendease.data.PdfTextExtractor;
 import io.github.fortunatechick.attendease.parser.AttendanceParser;
 import io.github.fortunatechick.attendease.parser.ParseResult;
@@ -82,6 +86,24 @@ public class PdfImportInstrumentedTest {
         assertEquals(Collections.singletonMap("OD", 1), result.unknownStatuses);
         assertEquals("Cloud Computing and Virtualization",
                 result.prefixMerges.get("Cloud Computing and Virtualizat"));
+    }
+
+    // Android 5.0-7.1 extract with PdfFonts' bundled-font mapper instead of PdfBox's system-font
+    // scan. Whatever Android this runs on, both must give exactly the same text.
+    @Test
+    public void bundledFontMapperExtractsTheSameText() throws Exception {
+        Uri pdf = file("fixture_report.pdf", fixture);
+        FontMapper original = FontMappers.instance();
+        String withDefault;
+        String withBundled;
+        try {
+            FontMappers.set(PdfFonts.bundledFontMapper());
+            withBundled = PdfTextExtractor.extract(app.getContentResolver(), pdf, app.getCacheDir());
+        } finally {
+            FontMappers.set(original);
+        }
+        withDefault = PdfTextExtractor.extract(app.getContentResolver(), pdf, app.getCacheDir());
+        assertEquals(withDefault, withBundled);
     }
 
     @Test

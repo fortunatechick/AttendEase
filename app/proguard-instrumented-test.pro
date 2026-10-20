@@ -12,3 +12,4 @@
 -keep class io.github.fortunatechick.attendease.calc.** { *; }
 -keep class io.github.fortunatechick.attendease.Formats { *; }
 -keep class io.github.fortunatechick.attendease.R$* { *; }
+-keep class io.github.fortunatechick.attendease.data.PdfFonts { *; }
