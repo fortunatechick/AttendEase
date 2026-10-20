@@ -67,6 +67,15 @@ public class LeavesActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        load();
+    }
+
+    @Override
+    public void onDataChanged() {
+        load();
+    }
+
+    private void load() {
         LeaveRepository repo = new LeaveRepository(this);
         Background.load(() -> {
             List<Row> loaded = new ArrayList<>();

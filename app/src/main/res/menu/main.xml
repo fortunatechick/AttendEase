@@ -4,27 +4,32 @@
 
     <item
         android:id="@+id/action_theme"
+        android:alphabeticShortcut="d"
         android:icon="@drawable/ic_dark_mode"
         android:title="Dark mode"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/action_portal"
+        android:alphabeticShortcut="p"
         android:title="SAP portal"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_import"
+        android:alphabeticShortcut="o"
         android:title="Upload attendance PDF"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_add_subject"
+        android:alphabeticShortcut="n"
         android:title="Add subject"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_leaves"
+        android:alphabeticShortcut="l"
         android:title="Medical leave"
         app:showAsAction="never" />
 
@@ -36,6 +41,7 @@
 
     <item
         android:id="@+id/action_settings"
+        android:alphabeticShortcut=","
         android:title="Settings"
         app:showAsAction="never" />
 

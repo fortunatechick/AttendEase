@@ -1,8 +1,11 @@
 package io.github.fortunatechick.attendease;
 
+import android.content.ClipData;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
+import android.view.DragEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,6 +14,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.core.splashscreen.SplashScreen;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -59,6 +63,7 @@ public class MainActivity extends BaseActivity {
         list.setAdapter(adapter);
 
         findViewById(R.id.btn_import).setOnClickListener(v -> openImport());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) acceptDroppedPdfs(findViewById(android.R.id.content));
         findViewById(R.id.btn_add_subject).setOnClickListener(v -> showAddSubjectDialog());
         findViewById(R.id.btn_portal).setOnClickListener(v -> SapPortal.showAndOpen(this));
         findViewById(R.id.btn_exit_guest).setOnClickListener(v -> confirmExitGuest());
@@ -77,6 +82,47 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        load();
+    }
+
+    // Dragging a PDF from Files (or a browser's downloads) onto the dashboard uploads it.
+    @RequiresApi(Build.VERSION_CODES.N)
+    private void acceptDroppedPdfs(View target) {
+        target.setOnDragListener((v, event) -> {
+            switch (event.getAction()) {
+                case DragEvent.ACTION_DRAG_STARTED:
+                    return event.getClipDescription() != null
+                            && event.getClipDescription().hasMimeType("application/pdf");
+                case DragEvent.ACTION_DRAG_ENTERED:
+                    v.setAlpha(0.6f);
+                    return true;
+                case DragEvent.ACTION_DRAG_EXITED:
+                case DragEvent.ACTION_DRAG_ENDED:
+                    v.setAlpha(1f);
+                    return true;
+                case DragEvent.ACTION_DROP:
+                    v.setAlpha(1f);
+                    ClipData clip = event.getClipData();
+                    if (clip == null || clip.getItemCount() == 0 || clip.getItemAt(0).getUri() == null) {
+                        return false;
+                    }
+                    // Read access lasts while this activity lives; the import reads it at once.
+                    if (requestDragAndDropPermissions(event) == null) return false;
+                    Intent intent = new Intent(this, ImportActivity.class)
+                            .setAction(Intent.ACTION_VIEW)
+                            .setDataAndType(clip.getItemAt(0).getUri(), "application/pdf")
+                            .putExtra(ImportActivity.EXTRA_FROM_DROP, true)
+                            .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    startActivity(intent);
+                    return true;
+                default:
+                    return true;
+            }
+        });
+    }
+
+    @Override
+    public void onDataChanged() {
         load();
     }
 

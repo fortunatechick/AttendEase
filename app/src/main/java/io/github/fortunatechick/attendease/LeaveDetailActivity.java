@@ -50,6 +50,7 @@ public class LeaveDetailActivity extends BaseActivity {
     private View header;
     private RecyclerView.Adapter<RecyclerView.ViewHolder> adapter;
     private boolean noteLoaded;
+    private static final String KEY_NOTE = "note";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +65,10 @@ public class LeaveDetailActivity extends BaseActivity {
         RecyclerView list = findViewById(R.id.list);
         list.setLayoutManager(new LinearLayoutManager(this));
         header = LayoutInflater.from(this).inflate(R.layout.item_leave_header, list, false);
+        if (savedInstanceState != null && savedInstanceState.getString(KEY_NOTE) != null) {
+            ((EditText) header.findViewById(R.id.edit_note)).setText(savedInstanceState.getString(KEY_NOTE));
+            noteLoaded = true;
+        }
 
         header.findViewById(R.id.btn_approve_all).setOnClickListener(v ->
                 Background.run(() -> {
@@ -83,9 +88,21 @@ public class LeaveDetailActivity extends BaseActivity {
         list.setAdapter(adapter);
     }
 
+    // The note box sits in the list header, outside the saved view tree: keep what was typed.
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle out) {
+        super.onSaveInstanceState(out);
+        out.putString(KEY_NOTE, ((EditText) header.findViewById(R.id.edit_note)).getText().toString());
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
+        load();
+    }
+
+    @Override
+    public void onDataChanged() {
         load();
     }
 

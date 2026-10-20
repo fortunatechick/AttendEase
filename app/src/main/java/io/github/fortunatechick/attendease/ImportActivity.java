@@ -25,6 +25,10 @@ import java.util.Map;
 
 public class ImportActivity extends BaseActivity {
 
+    // Set when the PDF was dropped onto our own dashboard, so it isn't treated as "opened
+    // from another app".
+    static final String EXTRA_FROM_DROP = "from_drop";
+
     private ImportViewModel model;
     private boolean fromOutside;
 
@@ -66,7 +70,7 @@ public class ImportActivity extends BaseActivity {
         // Opened from outside: the student tapped "Open" (or "Share") on a downloaded PDF,
         // typically right after downloading it from the SAP portal.
         Uri incoming = incomingPdf(getIntent());
-        fromOutside = incoming != null;
+        fromOutside = incoming != null && !getIntent().getBooleanExtra(EXTRA_FROM_DROP, false);
         if (savedInstanceState == null) {
             if (incoming != null) model.read(incoming); else openPicker();
         }

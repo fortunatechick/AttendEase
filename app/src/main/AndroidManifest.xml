@@ -16,6 +16,11 @@
         android:theme="@style/Theme.AttendEase"
         tools:targetApi="33">
 
+        <!-- Lets res/xml/split_rules.xml show two panes on wide windows (Android 12L+) -->
+        <property
+            android:name="android.window.PROPERTY_ACTIVITY_EMBEDDING_SPLITS_ENABLED"
+            android:value="true" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -62,6 +67,10 @@
 
         <activity
             android:name=".SettingsActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".PlaceholderActivity"
             android:exported="false" />
 
         <activity

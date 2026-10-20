@@ -49,6 +49,13 @@ public class AttendEaseDb extends SQLiteOpenHelper {
         appContext = context;
     }
 
+    // Every write in the app asks for the writable database first: let open screens know.
+    @Override
+    public SQLiteDatabase getWritableDatabase() {
+        DataChanges.changed();
+        return super.getWritableDatabase();
+    }
+
     // Foreign keys are switched on after any upgrade has run (not in onConfigure), because
     // the version 3 upgrade rebuilds the subject table and, with them on, dropping the old
     // table would cascade-delete every lecture.

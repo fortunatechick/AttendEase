@@ -1,5 +1,6 @@
 package io.github.fortunatechick.attendease;
 
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -90,6 +91,13 @@ public class LectureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 onLongPress.accept(l);
                 return true;
             });
+            // A mouse right-click or two-finger trackpad tap opens the same menu.
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                itemView.setOnContextClickListener(v -> {
+                    onLongPress.accept(l);
+                    return true;
+                });
+            }
         }
     }
 }

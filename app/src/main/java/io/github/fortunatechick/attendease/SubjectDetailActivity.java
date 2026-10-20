@@ -2,6 +2,7 @@ package io.github.fortunatechick.attendease;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -12,6 +13,8 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.core.os.BundleCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -57,9 +60,15 @@ public class SubjectDetailActivity extends BaseActivity {
     private long subjectId;
     private DetailData data;
 
+    private static final String KEY_FILTER = "filter";
+    private static final String KEY_SCROLL = "scroll";
+
     private View header;
+    private RecyclerView list;
     private LectureAdapter adapter;
     private ChipGroup filterChips;
+    // List position from before a rotation or fold; applied once the lectures are back.
+    private Parcelable pendingScroll;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,19 +79,39 @@ public class SubjectDetailActivity extends BaseActivity {
         repo = new AttendanceRepository(this);
         subjectId = getIntent().getLongExtra(EXTRA_SUBJECT_ID, -1);
 
-        RecyclerView list = findViewById(R.id.list);
+        list = findViewById(R.id.list);
         list.setLayoutManager(new LinearLayoutManager(this));
         header = LayoutInflater.from(this).inflate(R.layout.item_detail_header, list, false);
         filterChips = header.findViewById(R.id.chips_filter);
         filterChips.setOnCheckedStateChangeListener((group, checkedIds) -> showFilteredLectures());
+        // The header lives inside the list, outside the saved view tree, so restore it by hand.
+        if (savedInstanceState != null) {
+            int filter = savedInstanceState.getInt(KEY_FILTER, View.NO_ID);
+            if (filter != View.NO_ID) filterChips.check(filter);
+            pendingScroll = BundleCompat.getParcelable(savedInstanceState, KEY_SCROLL, Parcelable.class);
+        }
 
         adapter = new LectureAdapter(header, this::onLectureLongPress);
         list.setAdapter(adapter);
     }
 
     @Override
+    protected void onSaveInstanceState(@NonNull Bundle out) {
+        super.onSaveInstanceState(out);
+        out.putInt(KEY_FILTER, filterChips.getCheckedChipId());
+        if (list.getLayoutManager() != null) {
+            out.putParcelable(KEY_SCROLL, list.getLayoutManager().onSaveInstanceState());
+        }
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
+        load();
+    }
+
+    @Override
+    public void onDataChanged() {
         load();
     }
 
@@ -256,6 +285,10 @@ public class SubjectDetailActivity extends BaseActivity {
             if (matchesFilter(l.effectiveStatus, checked)) filtered.add(l);
         }
         adapter.setLectures(filtered);
+        if (pendingScroll != null && list.getLayoutManager() != null) {
+            list.getLayoutManager().onRestoreInstanceState(pendingScroll);
+            pendingScroll = null;
+        }
         ((TextView) header.findViewById(R.id.txt_list_hint)).setText(data.lectures.isEmpty()
                 ? "No lectures yet. Use Add lecture to record them by hand, or upload a PDF."
                 : "Long-press a lecture to change its status or mark a medical leave.");

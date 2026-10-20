@@ -12,6 +12,12 @@ AttendEase supports **Android 5.0 (API 21) through Android 16 (API 36)**, one un
 | Instrumented tests on the **minified release** (`connectedReleaseAndroidTest -PtestBuildType=release`): real PdfBox extraction of a placeholder PDF, plus a corrupt-file case | Emulator, API 37.1 (x86_64, 16 KB pages) | 2/2 pass |
 | Manual: install over a previous build, launch, dashboard renders, no crash in `logcat -b crash` | Same emulator | Pass |
 | APK signature (`apksigner verify --min-sdk-version 21`) | Host | v1 + v2 + v3 verified |
+| Tablet, 1280×800 dp landscape (`wm size 2560x1600`, density 320): dashboard and placeholder side by side; tapping a subject opens it in the right pane with no back arrow | Same emulator, resized | Pass (`docs/devices/tablet-two-pane.png`) |
+| Live sync between panes: marking a lecture Present on the right updates the overall % and the subject card on the left without a tap | Same | Pass (80.0% → 90.0%) |
+| Upload from the left pane opens the import in the right pane; the dashboard refreshes while saving | Same | Pass |
+| Rotate tablet to portrait (aspect above 1.4): single pane, back arrow returns, chosen filter chip kept, content centred at 720 dp | Same | Pass |
+| Unfolded-foldable size, 841×700 dp (`wm size 2208x1840`, density 420): two panes | Same | Pass (`docs/devices/foldable-unfolded.png`) |
+| Keyboard: Esc goes back from a subject; Ctrl+O opens the PDF picker | Same, phone size | Pass |
 
 ## Not run locally (owner / CI to cover)
 
@@ -29,6 +35,11 @@ in Android Studio's Device Manager or in CI with an emulator matrix:
 | 33 | 13 | Themed (monochrome) icon; per-app language entry | Enable themed icons; Settings > Apps > Language lists English |
 | 34 | 14 | Predictive back (`enableOnBackInvokedCallback`) | Back gesture from every screen |
 | 35/36 | 15/16 | Forced edge-to-edge; keyboard insets | Text fields stay above the keyboard; nothing under the status bar |
+
+Not run here, for the owner or CI to check:
+- **Separating hinge:** a real book-style foldable or dual-screen device, where the split should sit on the hinge (window extensions level 2+).
+- **Dropping a PDF:** drag a PDF from Files onto the dashboard in desktop windowing or on a Chromebook. `adb` can't simulate this.
+- **Right-click:** right-click a lecture with a mouse or trackpad (Android 6+).
 
 ## How to reproduce
 

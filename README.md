@@ -58,6 +58,7 @@ AttendEase imports the PDF and does the counting. Lectures covered by a leave go
 - **Guest mode.** *⋮ → Guest mode* lets a friend check their attendance on your phone. It starts blank, uses its own separate data, never touches yours, and is erased when you exit.
 - **No notifications.** The app never posts a notification and doesn't ask for the permission to.
 - **Light and dark mode** from the button next to the ⋮ menu.
+- **Tablets, foldables and Chromebooks:** on a wide window the dashboard and the subject sit side by side and stay in sync. A PDF can be dragged onto the dashboard; Ctrl+O uploads and Esc goes back. Screenshots are in [docs/devices](docs/devices).
 - **CSV export** that opens in Excel, shared through the normal Android share sheet.
 
 ---

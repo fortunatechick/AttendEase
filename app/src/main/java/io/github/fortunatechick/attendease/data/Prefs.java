@@ -9,7 +9,7 @@ import io.github.fortunatechick.attendease.parser.StudentProfile;
 
 public class Prefs {
 
-    private static final String FILE = "attendease_prefs";
+    static final String FILE = "attendease_prefs";
 
     private static final String KEY_NAME = "student_name";
     private static final String KEY_ROLL = "roll_no";
