@@ -8,7 +8,7 @@ An independent student project. Java + XML, raw SQLite, no network.
 
 ## Download
 
-Get the latest `AttendEase-v<version>.apk` from the [Releases page](https://github.com/fortunatechick/AttendEase/releases/latest). It needs Android 7.0 or newer for now; Phase 2 of the release work lowers this.
+Get the latest `AttendEase-v<version>.apk` from the [Releases page](https://github.com/fortunatechick/AttendEase/releases/latest). It needs Android 5.0 (Lollipop) or newer.
 
 To install on a phone:
 
@@ -67,10 +67,10 @@ AttendEase imports the PDF and does the counting. Lectures covered by a leave go
 The report is an Adobe LiveCycle (XML Forms) PDF. It is **text-based**, so no OCR is needed. PdfBox-Android reads it directly. With `setSortByPosition(true)`, each table row comes out as one line:
 
 ```
-1 Operating SystemsT1 BT CE C Jul 13, 2026 12:00:01 PM 1:00:00 PM P
-2 Artificial Intelligence T1  B Tech CE C Jul 13, 2026 2:00:01 PM 3:00:00 PM P
-5 RAG Sys&Agen WorkflowithPine&LaGrT1BTC5C Jul 14, 2026 7:00:01 AM 8:00:00 AM P
-13 Mobile Application DevelopP1 BT CE B2+C2 Jul 15, 2026 10:00:01 AM 11:00:00 AM P
+1 Operating SystemsT1 BT IT A Jan 11, 2027 9:00:01 AM 10:00:00 AM P
+2 Data Structures and Algorithms T1  B Tech IT A Jan 11, 2027 10:00:01 AM 11:00:00 AM A
+5 Cloud Computing and VirtualizatT1BTITA Jan 12, 2027 2:00:01 PM 3:00:00 PM P
+13 Design ThinkingP1 BT IT A1 Jan 13, 2027 11:00:01 AM 12:00:00 PM NU
 ```
 
 Page 1 also carries a header block (name, student number, roll no., session, programme, report duration). It is parsed into the student profile.
@@ -396,7 +396,7 @@ Anything that decides a number lives in a plain-Java class with a JVM test. The 
 
 ## Building and running
 
-**Requirements:** Android Studio (recent), JDK 17+, Android SDK platform 36. Minimum Android version: 7.0 (API 24).
+**Requirements:** Android Studio (recent), JDK 17+, Android SDK platform 36. Minimum Android version: 5.0 (API 21).
 
 **Android Studio:** *File → Open* → select the `AttendEase` folder, let Gradle sync, then run the `app` configuration on a device or emulator.
 

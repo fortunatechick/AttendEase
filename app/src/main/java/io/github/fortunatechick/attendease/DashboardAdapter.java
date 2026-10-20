@@ -15,7 +15,6 @@ import com.google.android.material.progressindicator.LinearProgressIndicator;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
 // First item is the overall summary card, the rest are one card per subject.
 public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -44,9 +43,9 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     private Header header;
     private final List<SubjectRow> rows = new ArrayList<>();
-    private final Consumer<Subject> onSubjectClick;
+    private final Callback<Subject> onSubjectClick;
 
-    public DashboardAdapter(Consumer<Subject> onSubjectClick) {
+    public DashboardAdapter(Callback<Subject> onSubjectClick) {
         this.onSubjectClick = onSubjectClick;
     }
 

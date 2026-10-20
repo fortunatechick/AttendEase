@@ -12,6 +12,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -165,7 +166,7 @@ public class SubjectDetailActivity extends BaseActivity {
             advice.setText(text);
         }
         advice.setTextColor(s.advice().isBelowThreshold()
-                ? getColor(R.color.risk) : getColor(R.color.safe));
+                ? ContextCompat.getColor(this, R.color.risk) : ContextCompat.getColor(this, R.color.safe));
     }
 
     // The college counts absences over the whole semester, theory and lab together, so the

@@ -35,7 +35,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TimeZone;
-import java.util.function.LongConsumer;
 
 // Two steps: the request details, then the lectures it covers.
 public class NewLeaveActivity extends BaseActivity {
@@ -180,7 +179,7 @@ public class NewLeaveActivity extends BaseActivity {
         btnSubmittedOn.setText(Formats.date(submittedOn));
     }
 
-    private void pickDate(String title, long current, LongConsumer onPicked) {
+    private void pickDate(String title, long current, LongCallback onPicked) {
         View view = LayoutInflater.from(this).inflate(R.layout.dialog_date_picker, null);
         DatePicker picker = view.findViewById(R.id.date_picker);
         Calendar c = Calendar.getInstance(TimeZone.getTimeZone("UTC"));

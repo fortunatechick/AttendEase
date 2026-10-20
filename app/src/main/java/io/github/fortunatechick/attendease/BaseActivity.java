@@ -35,7 +35,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         ViewCompat.setOnApplyWindowInsetsListener(root, (v, windowInsets) -> {
             Insets bars = windowInsets.getInsets(
                     WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout());
-            v.setPadding(left + bars.left, top + bars.top, right + bars.right, bottom + bars.bottom);
+            // The on-screen keyboard covers the bottom too: pad by whichever is taller so
+            // text fields and Save buttons stay above it.
+            Insets ime = windowInsets.getInsets(WindowInsetsCompat.Type.ime());
+            v.setPadding(left + bars.left, top + bars.top, right + bars.right,
+                    bottom + Math.max(bars.bottom, ime.bottom));
             return WindowInsetsCompat.CONSUMED;
         });
     }

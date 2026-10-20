@@ -1,6 +1,7 @@
 package io.github.fortunatechick.attendease;
 
 import android.database.sqlite.SQLiteConstraintException;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -106,17 +107,37 @@ public class AddLectureActivity extends BaseActivity {
     private void pickTime() {
         View view = LayoutInflater.from(this).inflate(R.layout.dialog_time_picker, null);
         TimePicker picker = view.findViewById(R.id.time_picker);
-        picker.setHour(startMinutes / 60);
-        picker.setMinute(startMinutes % 60);
+        setTime(picker, startMinutes / 60, startMinutes % 60);
         new MaterialAlertDialogBuilder(this)
                 .setTitle("Start time")
                 .setView(view)
                 .setPositiveButton("OK", (d, w) -> {
-                    startMinutes = picker.getHour() * 60 + picker.getMinute();
+                    startMinutes = minutesOf(picker);
                     showWhen();
                 })
                 .setNegativeButton("Cancel", null)
                 .show();
+    }
+
+    // TimePicker's getHour/setHour arrived in API 23; older versions only have the
+    // getCurrentHour/setCurrentHour pair, which does the same thing.
+    @SuppressWarnings("deprecation")
+    private static void setTime(TimePicker picker, int hour, int minute) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            picker.setHour(hour);
+            picker.setMinute(minute);
+        } else {
+            picker.setCurrentHour(hour);
+            picker.setCurrentMinute(minute);
+        }
+    }
+
+    @SuppressWarnings("deprecation")
+    private static int minutesOf(TimePicker picker) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            return picker.getHour() * 60 + picker.getMinute();
+        }
+        return picker.getCurrentHour() * 60 + picker.getCurrentMinute();
     }
 
     private void save(boolean another) {

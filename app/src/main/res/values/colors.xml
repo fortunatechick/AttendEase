@@ -1,4 +1,5 @@
 <resources>
+    <color name="launcher_background">#1E5AA8</color>
     <color name="brand">#1E5AA8</color>
     <color name="brand_dark">#0F3C78</color>
     <color name="safe">#2E7D32</color>

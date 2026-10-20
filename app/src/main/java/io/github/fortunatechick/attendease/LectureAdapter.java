@@ -12,7 +12,6 @@ import io.github.fortunatechick.attendease.data.Lecture;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
 // Subject detail list: one header view (figures and filter chips), then the lectures.
 public class LectureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -22,9 +21,9 @@ public class LectureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     private final View header;
     private final List<Lecture> lectures = new ArrayList<>();
-    private final Consumer<Lecture> onLongPress;
+    private final Callback<Lecture> onLongPress;
 
-    public LectureAdapter(View header, Consumer<Lecture> onLongPress) {
+    public LectureAdapter(View header, Callback<Lecture> onLongPress) {
         this.header = header;
         this.onLongPress = onLongPress;
     }
