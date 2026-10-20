@@ -56,6 +56,12 @@ Follow [SIGNING.md](SIGNING.md):
 - [x] Signing certificate SHA-256 added to the README.
 - [ ] Publish the draft.
 
+## Status of CI on the 1.0.0 commit
+
+- **Passing:** unit tests, lint, the debug build and the permission guard, plus device tests on Android 5.0, 6.0, 8.0, 10, 13 and 15 (API 21/23/26/29/33/35).
+- **Not run:** the Android 12/12L emulator (API 32) never boots on GitHub's runners, so that job is informational only.
+- [ ] Install the APK once on a real Android 12 phone, if you can borrow one. Upload a PDF, open a subject and check the splash screen.
+
 ## 5. After release
 
 - [ ] Re-read [DEVELOPER_VERIFICATION.md](DEVELOPER_VERIFICATION.md) and Google's FAQ. Decide whether to register as a developer before the global rollout, keeping in mind what personal details Google would show.
