@@ -1,0 +1,51 @@
+name: Bug report
+description: Something doesn't work or shows wrong figures
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Never attach a real attendance report, a screenshot of one, or its text.** It contains your name, roll number and every lecture.
+        To show a parsing problem, copy one or two rows and replace the subject, batch and division with made-up values.
+  - type: input
+    id: version
+    attributes:
+      label: App version
+      description: Settings → bottom of the screen
+      placeholder: "1.0.0"
+    validations:
+      required: true
+  - type: input
+    id: device
+    attributes:
+      label: Phone and Android version
+      placeholder: "e.g. Pixel 6, Android 14"
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened, and what did you expect?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Upload a PDF
+        2. Open a subject
+        3. ...
+  - type: textarea
+    id: crash
+    attributes:
+      label: Crash report (if the app offered one)
+      description: Use "Copy crash report" after restarting the app, check it contains nothing personal, and paste it here.
+      render: text
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy
+      options:
+        - label: I haven't included a real attendance report, names, roll numbers or other personal details.
+          required: true

@@ -1,0 +1,438 @@
+<resources>
+    <string name="app_name">AttendEase</string>
+
+    <!-- Layouts, menus and manifest -->
+    <string name="add_lecture_for_lectures_the_pdf_hasn">For lectures the PDF hasn\'t caught up on yet. When a later PDF includes the same lecture, it replaces this entry instead of counting twice.</string>
+    <string name="add_lecture_when">When</string>
+    <string name="add_lecture_type">Type</string>
+    <string name="add_lecture_theory">Theory</string>
+    <string name="add_lecture_practical">Practical</string>
+    <string name="add_lecture_attendance">Attendance</string>
+    <string name="add_lecture_present">Present</string>
+    <string name="add_lecture_absent">Absent</string>
+    <string name="add_lecture_not_sure">Not sure</string>
+    <string name="add_lecture_save">Save</string>
+    <string name="add_lecture_save_and_add_another">Save and add another</string>
+    <string name="import_couldn_t_read_this_file">Couldn\'t read this file</string>
+    <string name="import_pick_another_file">Pick another file</string>
+    <string name="import_report">Report</string>
+    <string name="import_rows">Rows</string>
+    <string name="import_what_saving_will_do">What saving will do</string>
+    <string name="import_cancel">Cancel</string>
+    <string name="import_save">Save</string>
+    <string name="leaves_no_medical_leave_requests_yet">No medical leave requests yet.\n\nWhen you hand in a medical certificate, add it here. The lectures it covers stop counting as absences until the HOD or coordinator decides.</string>
+    <string name="leaves_new_leave_request">New leave request</string>
+    <string name="main_guest_mode_a_friend_s">Guest mode: a friend\'s attendance. Your own data is hidden and untouched; this view is erased when you exit.</string>
+    <string name="main_exit">Exit</string>
+    <string name="main_no_attendance_yet">No attendance yet</string>
+    <string name="main_upload_the_attendance_pdf_from">Upload the attendance PDF from the SAP portal to see where you stand in every subject.</string>
+    <string name="main_upload_attendance_pdf">Upload attendance PDF</string>
+    <string name="main_add_a_subject_by_hand">Add a subject by hand</string>
+    <string name="main_get_the_pdf_from_the">Get the PDF from the SAP portal</string>
+    <string name="new_leave_dates_missed">Dates missed</string>
+    <string name="new_leave_reason_e_g_viral_fever">Reason (e.g. viral fever)</string>
+    <string name="new_leave_certificate_submitted_to">Certificate submitted to</string>
+    <string name="new_leave_hod">HOD</string>
+    <string name="new_leave_course_coordinator">Course Coordinator</string>
+    <string name="new_leave_submitted_on">Submitted on</string>
+    <string name="new_leave_next_choose_lectures">Next: choose lectures</string>
+    <string name="new_leave_all">All</string>
+    <string name="new_leave_none">None</string>
+    <string name="new_leave_by_subject">By subject</string>
+    <string name="new_leave_save_leave_request">Save leave request</string>
+    <string name="placeholder_pick_a_subject_to_see">Pick a subject to see its lectures</string>
+    <string name="settings_attendance_target">Attendance target</string>
+    <string name="settings_target_hint" formatted="false">The minimum attendance your college requires (often 75% or 80%). Check your college\'s rules.</string>
+    <string name="settings_semester_length">Semester length</string>
+    <string name="settings_when_a_medical_leave_is">When a medical leave is approved</string>
+    <string name="settings_count_the_lectures_as_attended">Count the lectures as attended</string>
+    <string name="settings_they_stay_in_the_total">They stay in the total and count as present. 26/33 with 2 approved becomes 28/33.</string>
+    <string name="settings_remove_the_lectures_from_the">Remove the lectures from the total</string>
+    <string name="settings_as_if_they_were_never">As if they were never held. 26/33 with 2 approved becomes 26/31.</string>
+    <string name="settings_semester">Semester</string>
+    <string name="settings_each_pdf_is_filed_under">Each PDF is filed under the semester named in its header, so subjects and electives from different semesters never mix.</string>
+    <string name="settings_switch">Switch</string>
+    <string name="settings_new_semester">New semester</string>
+    <string name="settings_data">Data</string>
+    <string name="settings_export_csv_opens_in_excel">Export CSV (opens in Excel)</string>
+    <string name="settings_clear_all_data">Clear all data</string>
+    <string name="settings_check_for_updates">Check for updates</string>
+    <string name="settings_credit" translatable="false">Made by Om Chaudhari\nhttps://github.com/fortunatechick/AttendEase</string>
+    <string name="weekly_pattern_theory">Theory</string>
+    <string name="weekly_pattern_lab">Lab</string>
+    <string name="dashboard_header_held">Held</string>
+    <string name="dashboard_header_attended">Attended</string>
+    <string name="dashboard_header_missed">Missed</string>
+    <string name="dashboard_header_pending">Pending</string>
+    <string name="detail_header_lectures">Lectures</string>
+    <string name="detail_header_all">All</string>
+    <string name="detail_header_present">Present</string>
+    <string name="detail_header_absent">Absent</string>
+    <string name="detail_header_pending">Pending</string>
+    <string name="detail_header_not_updated">Not updated</string>
+    <string name="detail_header_long_press_a_lecture_to">Long-press a lecture to change its status or mark a medical leave.</string>
+    <string name="leave_header_effect_on_attendance">Effect on attendance</string>
+    <string name="leave_header_note_who_you_spoke_to">Note (who you spoke to, what they said)</string>
+    <string name="leave_header_save_note">Save note</string>
+    <string name="leave_header_record_the_outcome">Record the outcome</string>
+    <string name="leave_header_approve_all">Approve all</string>
+    <string name="leave_header_reject_all">Reject all</string>
+    <string name="leave_header_or_decide_lecture_by_lecture">Or decide lecture by lecture. Partial approval is common.</string>
+    <string name="leave_lecture_pending">Pending</string>
+    <string name="leave_lecture_approved">Approved</string>
+    <string name="leave_lecture_rejected">Rejected</string>
+    <string name="menu_leave_detail_withdraw_request">Withdraw request</string>
+    <string name="menu_main_dark_mode">Dark mode</string>
+    <string name="menu_main_sap_portal">SAP portal</string>
+    <string name="menu_main_upload_attendance_pdf">Upload attendance PDF</string>
+    <string name="menu_main_add_subject">Add subject</string>
+    <string name="menu_main_medical_leave">Medical leave</string>
+    <string name="menu_main_guest_mode">Guest mode</string>
+    <string name="menu_main_settings">Settings</string>
+    <string name="menu_subject_detail_add_lecture">Add lecture</string>
+    <string name="menu_subject_detail_lectures_per_week">Lectures per week</string>
+    <string name="menu_subject_detail_merge_into_another_subject">Merge into another subject</string>
+    <string name="menu_subject_detail_delete_subject">Delete subject</string>
+    <string name="menu_subject_detail_rename_subject">Rename subject</string>
+    <string name="manifest_upload_to_attendease">Upload to AttendEase</string>
+
+    <!-- Shared wording (Formats, LeaveFormats) -->
+    <string name="component_theory">Theory</string>
+    <string name="component_practical">Practical</string>
+    <string name="status_present">Present</string>
+    <string name="status_absent">Absent</string>
+    <string name="status_pending_leave">Pending leave</string>
+    <string name="status_leave_approved">Leave approved</string>
+    <string name="status_not_updated">Not updated</string>
+    <string name="standing_safe">SAFE</string>
+    <string name="standing_at_risk">AT RISK</string>
+    <string name="standing_depends_on_leave">DEPENDS ON LEAVE</string>
+    <string name="standing_no_data">NO DATA</string>
+    <string name="advice_cannot_reach">You can no longer reach %1$d%%</string>
+    <plurals name="advice_attend_next">
+        <item quantity="one">Attend the next %1$d to reach %2$d%%</item>
+        <item quantity="other">Attend the next %1$d to reach %2$d%%</item>
+    </plurals>
+    <string name="advice_cannot_miss">You can\'t miss any more</string>
+    <plurals name="advice_can_miss">
+        <item quantity="one">You can miss %1$d more</item>
+        <item quantity="other">You can miss %1$d more</item>
+    </plurals>
+    <string name="budget_summary">%1$s · %2$s · %3$s</string>
+    <plurals name="budget_lectures">
+        <item quantity="one">%1$d lecture</item>
+        <item quantity="other">%1$d lectures</item>
+    </plurals>
+    <plurals name="budget_misses_allowed">
+        <item quantity="one">%1$d miss allowed</item>
+        <item quantity="other">%1$d misses allowed</item>
+    </plurals>
+    <string name="budget_used">%1$d used</string>
+    <string name="budget_over_limit">Over the semester limit by %1$d. Attending every remaining lecture ends at %2$s.</string>
+    <string name="budget_no_misses_left">No misses left this semester: one more absence takes you under %1$d%%</string>
+    <plurals name="budget_safe_for_semester">
+        <item quantity="one">Safe for the semester: you could miss the %1$d remaining lecture</item>
+        <item quantity="other">Safe for the semester: you could miss all %1$d remaining lectures</item>
+    </plurals>
+    <plurals name="budget_can_miss">
+        <item quantity="one">You can miss %1$d more this semester</item>
+        <item quantity="other">You can miss %1$d more this semester</item>
+    </plurals>
+    <string name="budget_worst_over">\u0020(over the limit by %1$d if the leave is rejected)</string>
+    <string name="budget_worst">\u0020(%1$d if the leave is rejected)</string>
+    <plurals name="lectures_awaiting_decision">
+        <item quantity="one">%1$d lecture awaiting decision</item>
+        <item quantity="other">%1$d lectures awaiting decision</item>
+    </plurals>
+    <plurals name="lectures">
+        <item quantity="one">%1$d lecture</item>
+        <item quantity="other">%1$d lectures</item>
+    </plurals>
+    <string name="no_lectures_marked_yet">No lectures marked yet</string>
+    <string name="date_range">%1$s – %2$s</string>
+    <string name="leave_status_approved">APPROVED</string>
+    <string name="leave_status_rejected">REJECTED</string>
+    <string name="leave_status_partial">PARTIAL</string>
+    <string name="leave_status_awaiting">AWAITING DECISION</string>
+    <string name="decision_approved">Approved</string>
+    <string name="decision_rejected">Rejected</string>
+    <string name="decision_pending">Pending</string>
+    <string name="submitted_to_hod">HOD</string>
+    <string name="submitted_to_coordinator">Course Coordinator</string>
+
+    <!-- Common actions -->
+    <string name="action_save">Save</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_ok">OK</string>
+    <string name="dot_join">%1$s · %2$s</string>
+    <string name="date_time">%1$s, %2$s</string>
+
+    <!-- Subject screen -->
+    <string name="subject_name_in_pdf">Name in the PDF: %1$s</string>
+    <string name="subject_combined">Combined</string>
+    <string name="subject_counts">%1$d / %2$d attended · %3$d missed</string>
+    <string name="subject_pending_range">%1$s\nConfirmed %2$s · if approved %3$s · if rejected %4$s</string>
+    <string name="subject_if_rejected">If the leave is rejected: %1$s</string>
+    <string name="subject_budget_set_by_you">%1$s (set by you)</string>
+    <string name="subject_budget_estimated">%1$s (estimated)</string>
+    <string name="subject_set_lectures_per_week">Set lectures per week (⋮ menu) to see the semester budget.</string>
+    <string name="subject_planned">Planned: %1$s (counts toward the combined limit)</string>
+    <string name="subject_no_lectures_hint">No lectures yet. Use Add lecture to record them by hand, or upload a PDF.</string>
+    <string name="weekly_no_estimate">No lectures recorded yet to estimate from.</string>
+    <string name="weekly_estimate">Estimated from the PDF: %1$d theory + %2$d lab a week.</string>
+    <string name="weekly_examples">Over %1$d weeks, 4 a week is %2$d lectures (%3$d misses allowed) and 3 a week is %4$d (%5$d allowed).</string>
+    <string name="weekly_use_estimate">Use estimate</string>
+    <string name="lecture_not_updated_yet">Not updated yet</string>
+    <string name="lecture_back_to_pdf">Back to PDF status (%1$s)</string>
+    <string name="lecture_leave_submitted">Medical leave submitted…</string>
+    <string name="lecture_delete">Delete this lecture</string>
+    <string name="lecture_cannot_leave">This lecture can\'t be put on leave</string>
+    <string name="lecture_marked_leave">Marked as medical leave, awaiting decision. Long-press it again once you know the outcome.</string>
+    <string name="lecture_back_to_awaiting">Back to awaiting decision</string>
+    <string name="lecture_leave_rejected">Leave rejected (counts as absent again)</string>
+    <string name="lecture_remove_from_leave">Remove from the leave (I didn\'t submit for this one)</string>
+    <string name="lecture_open_leave">Open the leave request</string>
+    <string name="lecture_leave_awaiting">medical leave awaiting decision</string>
+    <string name="lecture_leave_approved_lower">medical leave approved</string>
+    <string name="merge_nothing_to_merge">There\'s no other subject in this semester to merge with.</string>
+    <string name="merge_pick_title">Merge “%1$s” into</string>
+    <string name="merge_confirm_title">Merge into %1$s?</string>
+    <plurals name="merge_confirm_message">
+        <item quantity="one">The %1$d lecture of %2$s moves to %3$s. Future PDF rows named “%4$s” will go there too.</item>
+        <item quantity="other">All %1$d lectures of %2$s move to %3$s. Future PDF rows named “%4$s” will go there too.</item>
+    </plurals>
+    <string name="merge_action">Merge</string>
+    <string name="delete_subject_title">Delete %1$s?</string>
+    <plurals name="delete_subject_message">
+        <item quantity="one">Deletes the subject and its %1$d lecture.</item>
+        <item quantity="other">Deletes the subject and all %1$d of its lectures.</item>
+    </plurals>
+    <string name="delete_subject_comes_back">It will come back the next time you upload a PDF that lists it.</string>
+    <string name="rename_message">Shown everywhere in the app. PDF rows still match on “%1$s”.</string>
+    <string name="rename_use_pdf_name">Use PDF name</string>
+
+    <!-- Dashboard -->
+    <string name="guest_empty_body">Upload your friend\'s attendance PDF to see their figures. It\'s kept apart from this phone owner\'s data and erased when guest mode ends.</string>
+    <string name="footnote_over_limit">%1$d over limit</string>
+    <string name="footnote_near_limit">%1$d near limit</string>
+    <string name="footnote_all_within">All within limit</string>
+    <string name="footnote_not_marked">%1$d not marked yet</string>
+    <string name="footnote_pdf_to">PDF to %1$s</string>
+    <string name="add_subject_hint">e.g. Operating Systems</string>
+    <string name="add_subject_message">Use the name as it appears on the SAP portal so a PDF you upload later joins up with it.</string>
+    <string name="add_subject_action">Add</string>
+    <string name="add_subject_exists">%1$s already exists</string>
+    <string name="guest_exit_menu">Exit guest mode</string>
+    <string name="theme_light">Light mode</string>
+    <string name="guest_enter_message">For a friend to check their own attendance on this phone.\n\nIt starts blank: they upload their PDF and see their figures. Your attendance, leaves and settings stay hidden and untouched. Everything they upload is erased when guest mode ends.</string>
+    <string name="guest_start">Start guest mode</string>
+    <string name="guest_exit_title">Exit guest mode?</string>
+    <string name="guest_exit_message">Your friend\'s uploaded attendance is erased and your own data comes back.</string>
+    <string name="guest_exit_action">Exit and erase</string>
+    <string name="guest_stay">Stay</string>
+    <string name="guest_subtitle">Guest mode · your own data is untouched</string>
+    <string name="dashboard_overall_caption">Overall attendance · target %1$d%%</string>
+    <string name="dashboard_counts">%1$d / %2$d · missed %3$d</string>
+    <string name="lecture_added_by_hand">added by hand</string>
+    <string name="lecture_changed_by_you">changed by you</string>
+    <string name="leaves_row_detail">%1$s · submitted to %2$s</string>
+
+    <!-- Settings -->
+    <string name="percent_value">%1$d%%</string>
+    <string name="settings_version">AttendEase %1$s</string>
+    <string name="settings_offline_note">AttendEase works fully offline. Nothing leaves this phone unless you share an export.</string>
+    <string name="settings_no_semester">No semester yet: upload a PDF or add a subject</string>
+    <plurals name="subjects">
+        <item quantity="one">%1$d subject</item>
+        <item quantity="other">%1$d subjects</item>
+    </plurals>
+    <string name="settings_semesters_stored">%1$d semesters stored</string>
+    <string name="settings_only_one_semester">Only one semester so far. Uploading a PDF from another semester adds one.</string>
+    <string name="settings_show_semester">Show semester</string>
+    <string name="settings_new_semester_hint">e.g. 2027-2028, Semester VI</string>
+    <string name="settings_new_semester_message">Use the same wording as the PDF header (Academic Year &amp; Academic Session) so PDFs you upload later land in it.</string>
+    <string name="settings_create">Create</string>
+    <plurals name="weeks">
+        <item quantity="one">%1$d week</item>
+        <item quantity="other">%1$d weeks</item>
+    </plurals>
+    <string name="settings_weeks_hint">Absences are counted over the whole semester, theory and lab together. 4 lectures a week = %1$d lectures, %2$d misses allowed; 3 a week = %3$d, %4$d allowed.</string>
+    <string name="settings_export_failed">Couldn\'t write the export file.</string>
+    <string name="settings_export_subject">Attendance summary</string>
+    <string name="settings_export_chooser">Share attendance CSV</string>
+    <string name="settings_clear_title">Clear all data?</string>
+    <string name="settings_clear_message">Every uploaded lecture, subject and leave request is deleted. Your settings stay. This can\'t be undone.</string>
+    <string name="settings_clear_action">Clear</string>
+    <string name="settings_cleared">All data cleared</string>
+
+    <!-- Medical leave -->
+    <string name="leave_from">From</string>
+    <string name="leave_to">To</string>
+    <string name="leave_from_date">From  %1$s</string>
+    <string name="leave_to_date">To  %1$s</string>
+    <string name="leave_no_lectures_in_range">No lectures recorded between those dates. Upload a newer PDF or add the lectures by hand first.</string>
+    <string name="leave_select_lectures_of">Select lectures of</string>
+    <string name="leave_select">Select</string>
+    <plurals name="leave_selected">
+        <item quantity="one">%1$d of %2$d lecture selected</item>
+        <item quantity="other">%1$d of %2$d lectures selected</item>
+    </plurals>
+    <string name="leave_marked_absent">%1$d marked absent</string>
+    <string name="leave_lectures_covered">Lectures covered</string>
+    <string name="leave_tick_one">Tick at least one lecture the leave covers.</string>
+    <plurals name="leave_saved">
+        <item quantity="one">%1$d lecture is now awaiting a decision</item>
+        <item quantity="other">%1$d lectures are now awaiting a decision</item>
+    </plurals>
+    <string name="leave_already_in_request">already in a leave request</string>
+    <string name="leave_request_title">Leave request</string>
+    <string name="leave_note_saved">Note saved</string>
+    <string name="leave_submitted_to_on">Submitted to %1$s on %2$s</string>
+    <string name="leave_decision_counts">%1$s: %2$d pending, %3$d approved, %4$d rejected</string>
+    <string name="leave_lecture_detail">%1$s, %2$s · PDF says %3$s</string>
+    <string name="leave_withdraw_title">Withdraw this request?</string>
+    <string name="leave_withdraw_message">The request is deleted and every lecture it covered goes back to how it was before.</string>
+    <string name="leave_withdraw_action">Withdraw</string>
+
+    <!-- Add lecture -->
+    <string name="add_lecture_date">Date</string>
+    <string name="add_lecture_start_time">Start time</string>
+    <string name="add_lecture_duplicate_theory">There\'s already a theory lecture at that time.</string>
+    <string name="add_lecture_duplicate_practical">There\'s already a practical lecture at that time.</string>
+    <string name="add_lecture_saved">Saved</string>
+
+    <!-- SAP portal -->
+    <string name="portal_steps">1. Log in with your college ID.\n2. Open the student attendance report and download it as PDF.\n3. Tap Open on the downloaded file and choose “Upload to AttendEase”.\n\nThe PDF goes straight to the upload screen. If it doesn\'t, use Upload attendance PDF from this menu and pick it from Downloads.</string>
+    <string name="portal_open">Open portal</string>
+    <string name="portal_no_browser">No web browser is installed to open this page.</string>
+
+    <!-- Upload -->
+    <string name="import_no_text">This PDF has no readable text. It may be a scanned copy or a photo saved as PDF.</string>
+    <string name="import_no_rows">No attendance rows were found in this PDF. It doesn\'t look like the SAP student attendance report.</string>
+    <string name="import_download_again">Download the Student Attendance report from the portal and upload that file.</string>
+    <string name="import_read_failed">Something went wrong while reading this file (%1$s). Try downloading the report again.</string>
+    <string name="import_save_failed">Saving failed, and nothing was changed (%1$s).</string>
+    <string name="import_reading">Reading the PDF…</string>
+    <string name="import_saving">Saving…</string>
+    <string name="import_duration">From %1$s to %2$s</string>
+    <string name="import_semester">Semester: %1$s</string>
+    <string name="import_semester_new">Semester: %1$s (new; earlier semesters are kept and can be switched to in Settings)</string>
+    <string name="import_file">File: %1$s</string>
+    <plurals name="import_rows_read">
+        <item quantity="one">%1$d lecture row read</item>
+        <item quantity="other">%1$d lecture rows read</item>
+    </plurals>
+    <string name="import_status_counts">%1$d present · %2$d absent · %3$d exemption · %4$d late admission</string>
+    <string name="import_not_updated">%1$d not yet updated by faculty: saved, but not counted until they are marked</string>
+    <string name="import_none_not_updated">No rows awaiting faculty update</string>
+    <string name="import_missing_sr">⚠ Missing Sr No.: %1$s. Some rows could not be read, so totals may be low.</string>
+    <string name="import_repeated_sr">⚠ Repeated Sr No.: %1$s</string>
+    <plurals name="import_unknown_status">
+        <item quantity="one">⚠ %1$d row has the status code “%2$s”, which isn\'t P/A/E/L/NU. It\'s saved as not updated (not counted): long-press it to set.</item>
+        <item quantity="other">⚠ %1$d rows have the status code “%2$s”, which isn\'t P/A/E/L/NU. They\'re saved as not updated (not counted): long-press them to set.</item>
+    </plurals>
+    <plurals name="import_unmatched">
+        <item quantity="one">⚠ %1$d line looked like a row but could not be read</item>
+        <item quantity="other">⚠ %1$d lines looked like rows but could not be read</item>
+    </plurals>
+    <string name="import_no_gaps">✓ Sr No. 1–%1$d with no gaps</string>
+    <string name="import_subjects_heading">Subjects (%1$d)</string>
+    <string name="import_theory_lab">%1$d theory, %2$d lab</string>
+    <string name="import_theory_only">%1$d theory</string>
+    <string name="import_subject_row">%1$s  ·  %2$s</string>
+    <string name="import_truncated_merged">Truncated names merged:</string>
+    <string name="import_already_saved">This report is already saved. Saving again changes nothing.</string>
+    <string name="import_preview_counts">%1$d new lectures, %2$d updated, %3$d unchanged</string>
+    <plurals name="import_new_subjects">
+        <item quantity="one">%1$d new subject</item>
+        <item quantity="other">%1$d new subjects</item>
+    </plurals>
+    <string name="import_subject_renamed">Subject renamed: %1$s → %2$s</string>
+    <plurals name="import_resolved_by_college">
+        <item quantity="one">%1$d pending-leave lecture now shows as attended and will be approved</item>
+        <item quantity="other">%1$d pending-leave lectures now show as attended and will be approved</item>
+    </plurals>
+    <plurals name="import_will_replace_manual">
+        <item quantity="one">%1$d lecture you added by hand is in this PDF and will be replaced by its row</item>
+        <item quantity="other">%1$d lectures you added by hand are in this PDF and will be replaced by its rows</item>
+    </plurals>
+    <plurals name="import_still_absent">
+        <item quantity="one">%1$d pending-leave lecture still shows as absent and stays pending</item>
+        <item quantity="other">%1$d pending-leave lectures still show as absent and stay pending</item>
+    </plurals>
+    <plurals name="import_conflicts_preview">
+        <item quantity="one">%1$d lecture disagrees with what you recorded; you\'ll choose after saving</item>
+        <item quantity="other">%1$d lectures disagree with what you recorded; you\'ll choose after saving</item>
+    </plurals>
+    <string name="import_saved_counts">%1$d new, %2$d updated, %3$d unchanged lectures.</string>
+    <plurals name="import_subjects_added">
+        <item quantity="one">%1$d subject added.</item>
+        <item quantity="other">%1$d subjects added.</item>
+    </plurals>
+    <plurals name="import_manual_matched">
+        <item quantity="one">%1$d hand-added lecture matched to a PDF row.</item>
+        <item quantity="other">%1$d hand-added lectures matched to PDF rows.</item>
+    </plurals>
+    <plurals name="import_reconciled">
+        <item quantity="one">%1$d pending lecture was checked against this upload: %2$d approved, %3$d still absent (still awaiting a decision).</item>
+        <item quantity="other">%1$d pending lectures were checked against this upload: %2$d approved, %3$d still absent (still awaiting a decision).</item>
+    </plurals>
+    <plurals name="import_conflicts_saved">
+        <item quantity="one">%1$d lecture disagrees with what you recorded. Your version is kept until you choose.</item>
+        <item quantity="other">%1$d lectures disagree with what you recorded. Your version is kept until you choose.</item>
+    </plurals>
+    <string name="import_saved_title">Attendance saved</string>
+    <string name="import_review">Review</string>
+    <string name="import_conflict_leave_rejected">leave rejected</string>
+    <string name="import_conflict_item">%1$s (%2$s)\n%3$s, %4$s\nYou: %5$s · PDF: %6$s</string>
+    <string name="import_conflict_title">Tick where the PDF is right</string>
+    <string name="import_apply">Apply</string>
+    <string name="import_keep_mine">Keep mine</string>
+    <string name="import_and_more">%1$s and %2$d more</string>
+
+    <!-- Display and accessibility -->
+    <string name="settings_display">Display</string>
+    <string name="settings_dynamic_color">Use wallpaper colours</string>
+    <string name="settings_dynamic_color_hint">Matches the app\'s accent colour to your wallpaper. Attendance colours (green, amber, red) stay the same.</string>
+    <string name="a11y_change_status">change status or mark medical leave</string>
+    <string name="a11y_open_subject">show lectures</string>
+    <string name="a11y_open_leave">open leave request</string>
+
+    <!-- Upload errors -->
+    <string name="import_error_password">This PDF is password-protected, so its text can\'t be read. Download the attendance report again from the SAP portal and upload that copy.</string>
+    <string name="import_error_not_found">The file couldn\'t be opened. It may have been moved or deleted. Pick it again.</string>
+    <string name="import_error_not_pdf">This file isn\'t a readable PDF. Make sure you picked the attendance report downloaded from the SAP portal, not a screenshot or another file.</string>
+    <string name="import_error_too_large">This file is over %1$d MB, far bigger than an attendance report (normally well under 1 MB). Check you picked the right file.</string>
+    <string name="import_error_too_many_pages">This PDF has more than %1$d pages, far more than an attendance report. Check you picked the right file.</string>
+    <string name="import_error_out_of_memory">This PDF is too large to read on this device. The SAP attendance report is normally well under 1 MB; check you picked the right file.</string>
+
+    <!-- Crash report -->
+    <string name="crash_title">AttendEase closed unexpectedly</string>
+    <string name="crash_message">Last time, the app stopped because of an error. A short technical report was saved on this phone (app version, Android version, device model and the error). It contains none of your attendance. To help fix it, copy the report and paste it into a new issue on the project\'s GitHub page.</string>
+    <string name="crash_copy">Copy crash report</string>
+    <string name="crash_dismiss">Dismiss</string>
+    <string name="crash_clip_label">AttendEase crash report</string>
+    <string name="crash_copied">Crash report copied</string>
+
+    <!-- About, welcome, portal address -->
+    <string name="about_title">About</string>
+    <string name="about_what">AttendEase reads the student attendance report PDF from your college portal and shows, subject by subject, where you stand and how many lectures you can still miss. It also keeps track of medical-leave requests.</string>
+    <string name="about_disclaimer_heading">Unofficial</string>
+    <string name="about_disclaimer">AttendEase is an independent student project. It is not made, endorsed or supported by SVKM\'s NMIMS, by SAP, or by any college. Its figures are estimates worked out from the PDF you upload: your college\'s own records and rules always decide. Check anything important with your department.</string>
+    <string name="about_privacy_heading">Privacy</string>
+    <string name="about_privacy">Everything stays on this phone. The app has no internet permission, no accounts, no ads, no analytics and no tracking. Nothing is sent anywhere unless you share a CSV export yourself. If Android backup is on, your attendance is included in your phone\'s backup to your own Google account, like other app data; a guest\'s data never is.</string>
+    <string name="about_privacy_policy">Read the privacy policy</string>
+    <string name="about_licences_heading">Open-source licences</string>
+    <string name="about_licences">AttendEase is released under the MIT License.\n\nIt uses PdfBox-Android (Apache License 2.0), a port of Apache PDFBox, together with the fonts and data files bundled with it; AndroidX libraries and Material Components for Android (Apache License 2.0). Full notices are in the NOTICE file in the source code.</string>
+    <string name="about_source">Source code</string>
+    <string name="about_report_problem">Report a problem</string>
+    <string name="settings_about">About and privacy</string>
+    <string name="settings_portal_address">SAP portal address</string>
+    <string name="settings_portal_message">The page opened by SAP portal in the ⋮ menu. Change it if your college\'s portal moves. Only https:// addresses are accepted.</string>
+    <string name="settings_portal_invalid">That isn\'t an https:// web address, so the portal address wasn\'t changed.</string>
+    <string name="settings_portal_default">Use default</string>
+    <string name="welcome_title">Welcome to AttendEase</string>
+    <string name="welcome_message">Upload the attendance report PDF from your college portal to see where you stand in every subject, and how many lectures you can still miss this semester.\n\nAttendEase is an unofficial student project, not connected with your college or SAP. Its figures are estimates; your college\'s records decide.\n\nIt works fully offline: your data never leaves this phone.</string>
+    <string name="welcome_start">Get started</string>
+</resources>

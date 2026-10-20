@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_add_lecture"
+        android:icon="@drawable/ic_add"
+        android:title="@string/menu_subject_detail_add_lecture"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_weekly"
+        android:title="@string/menu_subject_detail_lectures_per_week"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_merge"
+        android:title="@string/menu_subject_detail_merge_into_another_subject"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_delete_subject"
+        android:title="@string/menu_subject_detail_delete_subject"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_rename"
+        android:title="@string/menu_subject_detail_rename_subject"
+        app:showAsAction="never" />
+
+</menu>

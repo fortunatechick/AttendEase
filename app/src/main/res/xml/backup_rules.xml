@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Android 6-11 auto backup. Your attendance, leaves and settings are backed up to your own
+     Google account (if backup is on) so they come back on a new phone. A guest's data, the
+     guest-mode switch and crash reports are never backed up. -->
+<full-backup-content>
+    <exclude domain="database" path="attendease_guest.db" />
+    <exclude domain="database" path="attendease_guest.db-journal" />
+    <exclude domain="database" path="attendease_guest.db-wal" />
+    <exclude domain="database" path="attendease_guest.db-shm" />
+    <exclude domain="sharedpref" path="attendease_prefs_guest.xml" />
+    <exclude domain="sharedpref" path="attendease_mode.xml" />
+    <exclude domain="file" path="last_crash.txt" />
+</full-backup-content>

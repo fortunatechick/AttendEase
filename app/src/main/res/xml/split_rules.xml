@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Two panes on wide windows (tablets, unfolded foldables, desktop windows): the dashboard on
+     the left, the subject / medical leave / settings screen on the right. Needs Android 12L+
+     with window-manager support; everywhere else each screen opens full-window as on a phone.
+     Below 600dp wide, or on a tall portrait tablet, the screens open one at a time. -->
+<resources xmlns:window="http://schemas.android.com/apk/res-auto">
+
+    <!-- Right pane before anything is picked -->
+    <SplitPlaceholderRule
+        window:finishPrimaryWithPlaceholder="always"
+        window:placeholderActivityName="io.github.fortunatechick.attendease.PlaceholderActivity"
+        window:splitMinSmallestWidthDp="600"
+        window:splitMinWidthDp="600"
+        window:splitRatio="0.42"
+        window:stickyPlaceholder="false">
+        <ActivityFilter window:activityName="io.github.fortunatechick.attendease.MainActivity" />
+    </SplitPlaceholderRule>
+
+    <SplitPairRule
+        window:clearTop="true"
+        window:finishPrimaryWithSecondary="never"
+        window:finishSecondaryWithPrimary="always"
+        window:splitMinSmallestWidthDp="600"
+        window:splitMinWidthDp="600"
+        window:splitRatio="0.42">
+        <SplitPairFilter
+            window:primaryActivityName="io.github.fortunatechick.attendease.MainActivity"
+            window:secondaryActivityName="io.github.fortunatechick.attendease.SubjectDetailActivity" />
+        <SplitPairFilter
+            window:primaryActivityName="io.github.fortunatechick.attendease.MainActivity"
+            window:secondaryActivityName="io.github.fortunatechick.attendease.LeavesActivity" />
+        <SplitPairFilter
+            window:primaryActivityName="io.github.fortunatechick.attendease.MainActivity"
+            window:secondaryActivityName="io.github.fortunatechick.attendease.SettingsActivity" />
+    </SplitPairRule>
+</resources>

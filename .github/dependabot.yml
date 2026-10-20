@@ -1,0 +1,8 @@
+# Keeps the GitHub Actions used by CI up to date. App dependencies are pinned on purpose and
+# raised by hand after testing (see CONTRIBUTING.md).
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly

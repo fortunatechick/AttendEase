@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/txt_about_version"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:accessibilityHeading="true"
+                android:textAppearance="?attr/textAppearanceHeadlineSmall" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/about_what"
+                android:textAppearance="?attr/textAppearanceBodyMedium" />
+
+            <TextView
+                style="@style/AboutHeading"
+                android:accessibilityHeading="true"
+                android:text="@string/about_disclaimer_heading" />
+
+            <TextView
+                style="@style/AboutBody"
+                android:text="@string/about_disclaimer" />
+
+            <TextView
+                style="@style/AboutHeading"
+                android:accessibilityHeading="true"
+                android:text="@string/about_privacy_heading" />
+
+            <TextView
+                style="@style/AboutBody"
+                android:text="@string/about_privacy" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_privacy_policy"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/about_privacy_policy" />
+
+            <TextView
+                style="@style/AboutHeading"
+                android:accessibilityHeading="true"
+                android:text="@string/about_licences_heading" />
+
+            <TextView
+                style="@style/AboutBody"
+                android:text="@string/about_licences" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_source"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/about_source" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_report_problem"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/about_report_problem" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

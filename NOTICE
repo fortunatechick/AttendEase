@@ -1,0 +1,63 @@
+AttendEase
+Copyright (c) 2026 The AttendEase contributors
+Licensed under the MIT License (see LICENSE).
+
+The AttendEase APK includes the following third-party software. Each component keeps its own
+licence; the links lead to the full licence texts.
+
+------------------------------------------------------------------------------------------
+PdfBox-Android 2.0.27.0  (com.tom-roush:pdfbox-android)
+https://github.com/TomRoush/PdfBox-Android
+Licensed under the Apache License, Version 2.0
+https://www.apache.org/licenses/LICENSE-2.0
+
+  PdfBox-Android is a port of Apache PDFBox and Apache FontBox.
+
+  Apache PDFBox
+  Copyright The Apache Software Foundation
+  This product includes software developed at The Apache Software Foundation
+  (https://www.apache.org/).
+
+  Bundled with PdfBox-Android, inside the APK:
+
+  - Liberation Sans Regular font (LiberationSans-Regular.ttf)
+    Digitized data copyright (c) 2010 Google Corporation, with Reserved Font Arimo.
+    Copyright (c) 2012 Red Hat, Inc., with Reserved Font Name Liberation.
+    Licensed under the SIL Open Font License, Version 1.1
+    https://openfontlicense.org
+
+  - Adobe Font Metrics (AFM) files for the 14 standard PDF fonts, and the Adobe Glyph List
+    Copyright Adobe Systems Incorporated. Distributed under Adobe's terms that permit
+    use, copying and redistribution, as included with Apache PDFBox.
+    https://github.com/adobe-type-tools/agl-aglfn
+
+  - CMap resources
+    Copyright Adobe Systems Incorporated. Distributed under the BSD-style terms included
+    with Apache PDFBox.
+    https://github.com/adobe-type-tools/cmap-resources
+
+------------------------------------------------------------------------------------------
+Bouncy Castle 1.72  (org.bouncycastle:bcprov-jdk15to18, bcpkix-jdk15to18, bcutil-jdk15to18)
+Used by PdfBox-Android for encrypted PDFs.
+Copyright (c) 2000-2022 The Legion of the Bouncy Castle Inc. (https://www.bouncycastle.org)
+Licensed under the Bouncy Castle Licence (an MIT-style licence)
+https://www.bouncycastle.org/licence.html
+
+------------------------------------------------------------------------------------------
+AndroidX libraries: appcompat, core, core-splashscreen, recyclerview, window, activity,
+fragment, lifecycle and their transitive androidx dependencies
+Copyright The Android Open Source Project
+Licensed under the Apache License, Version 2.0
+https://www.apache.org/licenses/LICENSE-2.0
+
+------------------------------------------------------------------------------------------
+Material Components for Android  (com.google.android.material:material)
+Copyright Google LLC
+Licensed under the Apache License, Version 2.0
+https://www.apache.org/licenses/LICENSE-2.0
+
+------------------------------------------------------------------------------------------
+Kotlin standard library and kotlinx-coroutines (transitive dependencies of AndroidX)
+Copyright JetBrains s.r.o. and Kotlin Programming Language contributors
+Licensed under the Apache License, Version 2.0
+https://www.apache.org/licenses/LICENSE-2.0

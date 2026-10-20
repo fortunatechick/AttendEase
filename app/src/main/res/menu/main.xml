@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_theme"
+        android:alphabeticShortcut="d"
+        android:icon="@drawable/ic_dark_mode"
+        android:title="@string/menu_main_dark_mode"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_portal"
+        android:alphabeticShortcut="p"
+        android:title="@string/menu_main_sap_portal"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_import"
+        android:alphabeticShortcut="o"
+        android:title="@string/menu_main_upload_attendance_pdf"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_add_subject"
+        android:alphabeticShortcut="n"
+        android:title="@string/menu_main_add_subject"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_leaves"
+        android:alphabeticShortcut="l"
+        android:title="@string/menu_main_medical_leave"
+        app:showAsAction="never" />
+
+    <!-- Title switches to "Exit guest mode" while it is on -->
+    <item
+        android:id="@+id/action_guest"
+        android:title="@string/menu_main_guest_mode"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_settings"
+        android:alphabeticShortcut=","
+        android:title="@string/menu_main_settings"
+        app:showAsAction="never" />
+
+</menu>

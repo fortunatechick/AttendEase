@@ -1,0 +1,13 @@
+<resources>
+    <style name="Theme.AttendEase" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/brand</item>
+        <item name="colorPrimaryDark">@color/brand_dark</item>
+    </style>
+
+    <!-- Launch theme for MainActivity: brand-coloured splash with the app icon (core-splashscreen) -->
+    <style name="Theme.AttendEase.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/launcher_background</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
+        <item name="postSplashScreenTheme">@style/Theme.AttendEase</item>
+    </style>
+</resources>

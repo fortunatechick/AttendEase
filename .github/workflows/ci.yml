@@ -1,0 +1,99 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Unit tests, lint, debug build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      # Fails the build if gradle-wrapper.jar isn't an official Gradle release.
+      - uses: gradle/actions/wrapper-validation@v4
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Unit tests, lint and debug APK
+        run: ./gradlew --no-daemon testDebugUnitTest lintDebug assembleDebug
+
+      - name: No network or notification permission crept in
+        run: |
+          manifest=app/build/intermediates/merged_manifest/debug/processDebugMainManifest/AndroidManifest.xml
+          test -f "$manifest" || manifest=$(find app/build/intermediates -path '*debug*' -name AndroidManifest.xml | head -1)
+          if grep -E 'android.permission.(INTERNET|POST_NOTIFICATIONS|ACCESS_NETWORK_STATE)' "$manifest"; then
+            echo "::error::A network or notification permission was added. AttendEase must stay offline and silent."
+            exit 1
+          fi
+
+      - name: Upload reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reports
+          path: |
+            app/build/reports/
+            app/build/test-results/
+          retention-days: 14
+
+  device-tests:
+    name: Device tests (API ${{ matrix.api }})
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        # 31 is skipped: its emulator image fails to boot on GitHub runners; 32 (12L) covers Android 12.
+        api: [21, 23, 26, 29, 32, 33, 35]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
+      - name: Run instrumented tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: ${{ matrix.api }}
+          # Plain AOSP images boot fastest; API 35 only ships reliably as google_apis.
+          target: ${{ matrix.api >= 35 && 'google_apis' || 'default' }}
+          arch: x86_64
+          ram-size: 2048M
+          emulator-boot-timeout: 900
+          disable-animations: true
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -no-snapshot
+          script: ./gradlew --no-daemon connectedDebugAndroidTest
+
+      - name: Upload device test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: device-tests-api-${{ matrix.api }}
+          path: app/build/outputs/androidTest-results/
+          retention-days: 14

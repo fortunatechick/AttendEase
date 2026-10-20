@@ -1,0 +1,20 @@
+*.iml
+.gradle/
+/local.properties
+/.idea/
+.DS_Store
+/build/
+/app/build/
+/captures/
+.externalNativeBuild/
+.cxx/
+
+# Private: raw text of a real student's attendance report (name, student number,
+# every lecture). Tests that need it are skipped when it is absent.
+/docs/spike/pdfbox_dump.txt
+/app/src/test/resources/sap_report_*.txt
+
+# Release signing: never commit the key or its passwords.
+keystore.properties
+*.jks
+*.keystore

@@ -1,0 +1,123 @@
+plugins {
+    id 'com.android.application'
+}
+
+// ---- Version ----------------------------------------------------------------------------
+// versionName is MAJOR.MINOR.PATCH; versionCode is derived from it as
+// MAJOR * 10000 + MINOR * 100 + PATCH (so 1.0.0 -> 10000, 1.2.3 -> 10203).
+// Android refuses an update whose versionCode isn't higher than the installed one, so bump
+// versionName on every release and the code follows. MINOR and PATCH must stay below 100.
+def appVersionName = '1.0.0'
+def appVersionCode = {
+    def parts = appVersionName.tokenize('.').collect { it as int }
+    assert parts.size() == 3 && parts[1] < 100 && parts[2] < 100: "versionName must be MAJOR.MINOR.PATCH"
+    parts[0] * 10000 + parts[1] * 100 + parts[2]
+}()
+
+// ---- Release signing ----------------------------------------------------------------------
+// The release key lives outside git. keystore.properties (git-ignored) points at it; see
+// keystore.properties.example and release/SIGNING.md. CI writes the same file from secrets.
+def keystorePropsFile = rootProject.file('keystore.properties')
+def keystoreProps = new Properties()
+if (keystorePropsFile.exists()) {
+    keystorePropsFile.withInputStream { keystoreProps.load(it) }
+}
+
+android {
+    namespace 'io.github.fortunatechick.attendease'
+    compileSdk 36
+
+    defaultConfig {
+        applicationId 'io.github.fortunatechick.attendease'
+        minSdk 21
+        targetSdk 36
+        versionCode appVersionCode
+        versionName appVersionName
+
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+        vectorDrawables.useSupportLibrary = true
+    }
+
+    signingConfigs {
+        release {
+            if (keystorePropsFile.exists()) {
+                storeFile rootProject.file(keystoreProps['storeFile'])
+                storePassword keystoreProps['storePassword']
+                keyAlias keystoreProps['keyAlias']
+                keyPassword keystoreProps['keyPassword']
+            }
+            // v1 (JAR) signing is what Android 5-6 check; v2/v3 are faster and v3 allows a
+            // future key rotation. All three, so one APK installs and updates everywhere.
+            enableV1Signing true
+            enableV2Signing true
+            enableV3Signing true
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            debuggable false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            if (project.findProperty('testBuildType') == 'release') {
+                proguardFiles 'proguard-instrumented-test.pro'   // test-run linkage only
+            }
+            signingConfig keystorePropsFile.exists() ? signingConfigs.release : null
+        }
+    }
+
+    // Instrumented tests normally run against debug; `-PtestBuildType=release` runs them
+    // against the minified, release-signed build instead (proves the R8 rules are right).
+    testBuildType project.findProperty('testBuildType') ?: 'debug'
+
+    buildFeatures {
+        buildConfig true   // for the version shown in Settings
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    // One universal APK (no ABI or density splits): the app has no native code, so the same
+    // file installs on arm64, armeabi-v7a, x86 and x86_64 alike.
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = variant.buildType.name == 'release'
+                    ? "AttendEase-v${variant.versionName}.apk"
+                    : "AttendEase-v${variant.versionName}-${variant.buildType.name}.apk"
+        }
+    }
+}
+
+// A release build without the key would silently produce an unsigned APK; stop with a
+// clear message instead. Tasks that don't produce an APK (unit tests, lint) are unaffected.
+gradle.taskGraph.whenReady { graph ->
+    def needsKey = graph.allTasks.any { t ->
+        t.project == project && (t.name ==~ /(package|assemble|bundle|install)Release.*/ ||
+                (t.name ==~ /connectedReleaseAndroidTest/))
+    }
+    if (needsKey && !keystorePropsFile.exists()) {
+        throw new GradleException(
+                "Release signing key not configured: create keystore.properties in the project root " +
+                "(copy keystore.properties.example) pointing at your release keystore. See release/SIGNING.md.")
+    }
+}
+
+dependencies {
+    // AndroidX / Material (Google platform libraries)
+    implementation 'androidx.appcompat:appcompat:1.7.1'
+    implementation 'com.google.android.material:material:1.13.0'
+    implementation 'androidx.recyclerview:recyclerview:1.4.0'
+    implementation 'androidx.core:core-splashscreen:1.0.1'
+    implementation 'androidx.window:window:1.4.0'   // two-pane on tablets and foldables
+
+    // The one third-party library: PDF text extraction
+    implementation 'com.tom-roush:pdfbox-android:2.0.27.0'
+
+    testImplementation 'junit:junit:4.13.2'
+
+    androidTestImplementation 'androidx.test:runner:1.6.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
+}
