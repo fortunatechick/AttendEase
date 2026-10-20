@@ -398,4 +398,41 @@
     <string name="a11y_change_status">change status or mark medical leave</string>
     <string name="a11y_open_subject">show lectures</string>
     <string name="a11y_open_leave">open leave request</string>
+
+    <!-- Upload errors -->
+    <string name="import_error_password">This PDF is password-protected, so its text can\'t be read. Download the attendance report again from the SAP portal and upload that copy.</string>
+    <string name="import_error_not_found">The file couldn\'t be opened. It may have been moved or deleted. Pick it again.</string>
+    <string name="import_error_not_pdf">This file isn\'t a readable PDF. Make sure you picked the attendance report downloaded from the SAP portal, not a screenshot or another file.</string>
+    <string name="import_error_too_large">This file is over %1$d MB, far bigger than an attendance report (normally well under 1 MB). Check you picked the right file.</string>
+    <string name="import_error_too_many_pages">This PDF has more than %1$d pages, far more than an attendance report. Check you picked the right file.</string>
+    <string name="import_error_out_of_memory">This PDF is too large to read on this device. The SAP attendance report is normally well under 1 MB; check you picked the right file.</string>
+
+    <!-- Crash report -->
+    <string name="crash_title">AttendEase closed unexpectedly</string>
+    <string name="crash_message">Last time, the app stopped because of an error. A short technical report was saved on this phone (app version, Android version, device model and the error). It contains none of your attendance. To help fix it, copy the report and paste it into a new issue on the project\'s GitHub page.</string>
+    <string name="crash_copy">Copy crash report</string>
+    <string name="crash_dismiss">Dismiss</string>
+    <string name="crash_clip_label">AttendEase crash report</string>
+    <string name="crash_copied">Crash report copied</string>
+
+    <!-- About, welcome, portal address -->
+    <string name="about_title">About</string>
+    <string name="about_what">AttendEase reads the student attendance report PDF from your college portal and shows, subject by subject, where you stand and how many lectures you can still miss. It also keeps track of medical-leave requests.</string>
+    <string name="about_disclaimer_heading">Unofficial</string>
+    <string name="about_disclaimer">AttendEase is an independent student project. It is not made, endorsed or supported by SVKM\'s NMIMS, by SAP, or by any college. Its figures are estimates worked out from the PDF you upload: your college\'s own records and rules always decide. Check anything important with your department.</string>
+    <string name="about_privacy_heading">Privacy</string>
+    <string name="about_privacy">Everything stays on this phone. The app has no internet permission, no accounts, no ads, no analytics and no tracking. Nothing is sent anywhere unless you share a CSV export yourself. If Android backup is on, your attendance is included in your phone\'s backup to your own Google account, like other app data; a guest\'s data never is.</string>
+    <string name="about_privacy_policy">Read the privacy policy</string>
+    <string name="about_licences_heading">Open-source licences</string>
+    <string name="about_licences">AttendEase is released under the MIT License.\n\nIt uses PdfBox-Android (Apache License 2.0), a port of Apache PDFBox, together with the fonts and data files bundled with it; AndroidX libraries and Material Components for Android (Apache License 2.0). Full notices are in the NOTICE file in the source code.</string>
+    <string name="about_source">Source code</string>
+    <string name="about_report_problem">Report a problem</string>
+    <string name="settings_about">About and privacy</string>
+    <string name="settings_portal_address">SAP portal address</string>
+    <string name="settings_portal_message">The page opened by SAP portal in the ⋮ menu. Change it if your college\'s portal moves. Only https:// addresses are accepted.</string>
+    <string name="settings_portal_invalid">That isn\'t an https:// web address, so the portal address wasn\'t changed.</string>
+    <string name="settings_portal_default">Use default</string>
+    <string name="welcome_title">Welcome to AttendEase</string>
+    <string name="welcome_message">Upload the attendance report PDF from your college portal to see where you stand in every subject, and how many lectures you can still miss this semester.\n\nAttendEase is an unofficial student project, not connected with your college or SAP. Its figures are estimates; your college\'s records decide.\n\nIt works fully offline: your data never leaves this phone.</string>
+    <string name="welcome_start">Get started</string>
 </resources>

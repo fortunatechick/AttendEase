@@ -25,6 +25,20 @@
         <item name="android:gravity">center</item>
     </style>
 
+    <style name="AboutHeading">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:textAppearance">?attr/textAppearanceTitleMedium</item>
+    </style>
+
+    <style name="AboutBody">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:textAppearance">?attr/textAppearanceBodyMedium</item>
+    </style>
+
     <!-- One line, shrinking with large font sizes rather than breaking a word in two -->
     <style name="StatLabel">
         <item name="android:textAppearance">?attr/textAppearanceBodySmall</item>

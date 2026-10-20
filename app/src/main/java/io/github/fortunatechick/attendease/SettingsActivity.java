@@ -95,6 +95,8 @@ public class SettingsActivity extends BaseActivity {
         }
 
         findViewById(R.id.btn_check_updates).setOnClickListener(v -> SapPortal.openInBrowser(this, RELEASES_URL));
+        findViewById(R.id.btn_about).setOnClickListener(v -> startActivity(new Intent(this, AboutActivity.class)));
+        findViewById(R.id.btn_portal_url).setOnClickListener(v -> editPortalUrl());
         ((TextView) findViewById(R.id.txt_version)).setText(getString(R.string.settings_version, BuildConfig.VERSION_NAME));
 
         findViewById(R.id.btn_switch_semester).setOnClickListener(v -> switchSemester());
@@ -157,6 +159,30 @@ public class SettingsActivity extends BaseActivity {
                     })
                     .show();
         });
+    }
+
+    // Where "SAP portal" in the ⋮ menu goes. Blank restores the default.
+    private void editPortalUrl() {
+        EditText input = new EditText(this);
+        input.setInputType(android.text.InputType.TYPE_CLASS_TEXT | android.text.InputType.TYPE_TEXT_VARIATION_URI);
+        input.setText(UiPrefs.portalUrl(this));
+        input.setSelectAllOnFocus(true);
+        FrameLayout box = new FrameLayout(this);
+        int pad = Math.round(20 * getResources().getDisplayMetrics().density);
+        box.setPadding(pad, pad / 2, pad, 0);
+        box.addView(input);
+        new MaterialAlertDialogBuilder(this)
+                .setTitle(R.string.settings_portal_address)
+                .setMessage(R.string.settings_portal_message)
+                .setView(box)
+                .setPositiveButton(R.string.action_save, (d, w) -> {
+                    if (!UiPrefs.setPortalUrl(this, input.getText().toString())) {
+                        Toast.makeText(this, R.string.settings_portal_invalid, Toast.LENGTH_LONG).show();
+                    }
+                })
+                .setNeutralButton(R.string.settings_portal_default, (d, w) -> UiPrefs.setPortalUrl(this, ""))
+                .setNegativeButton(R.string.action_cancel, null)
+                .show();
     }
 
     // For starting a semester by hand before its first PDF.

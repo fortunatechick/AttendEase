@@ -1,5 +1,6 @@
 package io.github.fortunatechick.attendease;
 
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
@@ -77,13 +78,18 @@ public class ImportActivity extends BaseActivity {
         }
     }
 
+    // Other apps can start this screen, so only a content:// link is accepted: a file:// path
+    // could point at this app's own private files, and anything else isn't a shared document.
     private static Uri incomingPdf(Intent intent) {
         if (intent == null) return null;
-        if (Intent.ACTION_VIEW.equals(intent.getAction())) return intent.getData();
-        if (Intent.ACTION_SEND.equals(intent.getAction())) {
-            return IntentCompat.getParcelableExtra(intent, Intent.EXTRA_STREAM, Uri.class);
+        Uri uri = null;
+        if (Intent.ACTION_VIEW.equals(intent.getAction())) {
+            uri = intent.getData();
+        } else if (Intent.ACTION_SEND.equals(intent.getAction())) {
+            uri = IntentCompat.getParcelableExtra(intent, Intent.EXTRA_STREAM, Uri.class);
         }
-        return null;
+        if (uri == null || !ContentResolver.SCHEME_CONTENT.equals(uri.getScheme())) return null;
+        return uri;
     }
 
     // When another app opened us, finishing would drop the student back in that app;

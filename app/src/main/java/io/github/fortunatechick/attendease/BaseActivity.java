@@ -65,6 +65,12 @@ public abstract class BaseActivity extends AppCompatActivity implements DataChan
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        GuestMode.touch(this);
+    }
+
+    @Override
     protected void onStop() {
         DataChanges.remove(this);
         super.onStop();

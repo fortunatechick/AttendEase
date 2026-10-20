@@ -252,6 +252,22 @@
                 android:text="@string/settings_clear_all_data"
                 android:textColor="@color/risk" />
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_portal_url"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/settings_portal_address" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_about"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/settings_about" />
+
             <TextView
                 android:id="@+id/txt_about"
                 android:layout_width="match_parent"

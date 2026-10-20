@@ -68,6 +68,10 @@ public class MainActivity extends BaseActivity {
         findViewById(R.id.btn_portal).setOnClickListener(v -> SapPortal.showAndOpen(this));
         findViewById(R.id.btn_exit_guest).setOnClickListener(v -> confirmExitGuest());
 
+        if (savedInstanceState == null) {
+            if (!UiPrefs.welcomed(this)) showWelcome(); else CrashLog.offerReport(this);
+        }
+
         boolean guest = GuestMode.isActive(this);
         findViewById(R.id.guest_banner).setVisibility(guest ? View.VISIBLE : View.GONE);
         if (guest) {
@@ -208,6 +212,20 @@ public class MainActivity extends BaseActivity {
                     });
                 })
                 .setNegativeButton(R.string.action_cancel, null)
+                .show();
+    }
+
+    // First launch only: what the app does, that it's unofficial, and that it stays offline.
+    private void showWelcome() {
+        new MaterialAlertDialogBuilder(this)
+                .setTitle(R.string.welcome_title)
+                .setMessage(R.string.welcome_message)
+                .setCancelable(false)
+                .setPositiveButton(R.string.welcome_start, (d, w) -> UiPrefs.setWelcomed(this))
+                .setNeutralButton(R.string.settings_about, (d, w) -> {
+                    UiPrefs.setWelcomed(this);
+                    startActivity(new Intent(this, AboutActivity.class));
+                })
                 .show();
     }
 

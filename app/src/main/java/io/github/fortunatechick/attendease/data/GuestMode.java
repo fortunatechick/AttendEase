@@ -29,7 +29,8 @@ public final class GuestMode {
 
     public static synchronized void enter(Context context) {
         wipe(context);
-        modePrefs(context).edit().putBoolean(KEY_ACTIVE, true).commit();
+        modePrefs(context).edit().putBoolean(KEY_ACTIVE, true)
+                .putLong(KEY_LAST_USED, System.currentTimeMillis()).commit();
         active = true;
     }
 
@@ -37,6 +38,24 @@ public final class GuestMode {
         modePrefs(context).edit().putBoolean(KEY_ACTIVE, false).commit();
         active = false;
         wipe(context);
+    }
+
+    // Guest mode is meant for a few minutes. Every screen the guest opens refreshes this
+    // time; on the next app start after ABANDONED_AFTER_MS without use, guest mode ends.
+    private static final String KEY_LAST_USED = "guest_last_used";
+    static final long ABANDONED_AFTER_MS = 6L * 60 * 60 * 1000;
+
+    public static synchronized void touch(Context context) {
+        if (isActive(context)) modePrefs(context).edit().putLong(KEY_LAST_USED, System.currentTimeMillis()).apply();
+    }
+
+    public static synchronized boolean endIfAbandoned(Context context) {
+        if (!isActive(context)) return false;
+        long last = modePrefs(context).getLong(KEY_LAST_USED, 0);
+        long idle = System.currentTimeMillis() - last;
+        if (idle >= 0 && idle < ABANDONED_AFTER_MS) return false;   // a clock set back counts as abandoned
+        exit(context);
+        return true;
     }
 
     // Erases everything the guest imported or changed.

@@ -54,13 +54,12 @@ public class ImportViewModel extends AndroidViewModel {
         executor.execute(() -> {
             try {
                 String name = displayName(uri);
-                String text = PdfTextExtractor.extract(getApplication().getContentResolver(), uri);
+                String text = PdfTextExtractor.extract(getApplication().getContentResolver(), uri,
+                        getApplication().getCacheDir());
                 ParseResult parsed = new AttendanceParser().parse(text);
                 if (parsed.isEmpty()) {
-                    String reason = getApplication().getString(text.trim().isEmpty()
-                            ? R.string.import_no_text : R.string.import_no_rows);
-                    throw new PdfTextExtractor.ImportException(reason + " "
-                            + getApplication().getString(R.string.import_download_again));
+                    throw new PdfTextExtractor.ImportException(text.trim().isEmpty()
+                            ? PdfTextExtractor.Reason.NO_TEXT : PdfTextExtractor.Reason.NO_ROWS);
                 }
                 AttendanceRepository.ImportPreview p = repository.previewImport(parsed);
                 mainHandler.post(() -> {
@@ -70,7 +69,9 @@ public class ImportViewModel extends AndroidViewModel {
                     stage.setValue(Stage.REVIEW);
                 });
             } catch (PdfTextExtractor.ImportException e) {
-                postError(e.getMessage());
+                postError(messageFor(e.reason));
+            } catch (OutOfMemoryError e) {
+                postError(messageFor(PdfTextExtractor.Reason.OUT_OF_MEMORY));
             } catch (RuntimeException e) {
                 postError(getApplication().getString(R.string.import_read_failed, e.getClass().getSimpleName()));
             }
@@ -94,6 +95,29 @@ public class ImportViewModel extends AndroidViewModel {
                 postError(getApplication().getString(R.string.import_save_failed, e.getClass().getSimpleName()));
             }
         });
+    }
+
+    private String messageFor(PdfTextExtractor.Reason reason) {
+        Application app = getApplication();
+        switch (reason) {
+            case PASSWORD:
+                return app.getString(R.string.import_error_password);
+            case NOT_FOUND:
+                return app.getString(R.string.import_error_not_found);
+            case TOO_LARGE:
+                return app.getString(R.string.import_error_too_large, PdfTextExtractor.MAX_BYTES / (1024 * 1024));
+            case TOO_MANY_PAGES:
+                return app.getString(R.string.import_error_too_many_pages, PdfTextExtractor.MAX_PAGES);
+            case OUT_OF_MEMORY:
+                return app.getString(R.string.import_error_out_of_memory);
+            case NO_TEXT:
+                return app.getString(R.string.import_no_text) + " " + app.getString(R.string.import_download_again);
+            case NO_ROWS:
+                return app.getString(R.string.import_no_rows) + " " + app.getString(R.string.import_download_again);
+            case NOT_PDF:
+            default:
+                return app.getString(R.string.import_error_not_pdf);
+        }
     }
 
     private void postError(String message) {

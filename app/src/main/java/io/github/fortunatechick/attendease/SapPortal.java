@@ -20,7 +20,8 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 // "Open" on the PDF and choosing AttendEase lands straight on the import review screen.
 public final class SapPortal {
 
-    public static final String URL = "https://sdc-sppap1.svkm.ac.in:50001/irj/portal";
+    // Default address; can be changed in Settings (UiPrefs.portalUrl).
+    public static final String DEFAULT_URL = "https://sdc-sppap1.svkm.ac.in:50001/irj/portal";
 
     private static final String EXTRA_SESSION = "android.support.customtabs.extra.SESSION";
     private static final String EXTRA_TOOLBAR_COLOR = "android.support.customtabs.extra.TOOLBAR_COLOR";
@@ -38,7 +39,7 @@ public final class SapPortal {
     }
 
     private static void open(Activity activity) {
-        openInBrowser(activity, URL);
+        openInBrowser(activity, UiPrefs.portalUrl(activity));
     }
 
     // Any page in a Custom Tab; the browser does the networking.
