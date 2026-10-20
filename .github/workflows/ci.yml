@@ -25,9 +25,9 @@ jobs:
           java-version: 17
 
       # Fails the build if gradle-wrapper.jar isn't an official Gradle release.
-      - uses: gradle/actions/wrapper-validation@v4
+      - uses: gradle/actions/wrapper-validation@v6
 
-      - uses: gradle/actions/setup-gradle@v4
+      - uses: gradle/actions/setup-gradle@v6
 
       - name: Unit tests, lint and debug APK
         run: ./gradlew --no-daemon testDebugUnitTest lintDebug assembleDebug
@@ -68,7 +68,7 @@ jobs:
           distribution: temurin
           java-version: 17
 
-      - uses: gradle/actions/setup-gradle@v4
+      - uses: gradle/actions/setup-gradle@v6
 
       - name: Enable KVM
         run: |
