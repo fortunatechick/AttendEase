@@ -17,10 +17,10 @@ code side of 1.0.0 is finished: tests, lint, device tests and the CI and release
   git push --force origin main
   ```
   Then close or delete any open Dependabot branches, which were made from the old history.
-- [ ] **Ask GitHub to purge cached objects (optional but recommended).** GitHub can keep unreachable commits from the old history (including the v1.0–v1.7 era with the old package name) for a while, and they stay reachable by commit hash. Contact GitHub Support ("remove sensitive data", <https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository>), or create a brand-new repository and push the clean history there.
-- [ ] **Turn on private vulnerability reporting:** *Settings → Code security → Private vulnerability reporting → Enable*. SECURITY.md relies on it.
-- [ ] **Make the repository public:** *Settings → General → Danger zone → Change visibility*.
-- [ ] **Turn on GitHub Pages** from the `/docs` folder on `main` (*Settings → Pages*). The app's *Read the privacy policy* button opens `https://fortunatechick.github.io/AttendEase/privacy.html`. Open it once to confirm.
+- [ ] **Ask GitHub to purge cached objects (recommended).** The repo went public on 20 October 2026 with old CI runs deleted, but the four closed Dependabot PRs still link to pre-squash commits (test fixtures with real division/batch codes and timetable). Ask GitHub Support to remove those PRs and unreachable objects. GitHub can keep unreachable commits from the old history (including the v1.0–v1.7 era with the old package name) for a while, and they stay reachable by commit hash. Contact GitHub Support ("remove sensitive data", <https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository>), or create a brand-new repository and push the clean history there.
+- [x] **Turn on private vulnerability reporting:** *Settings → Code security → Private vulnerability reporting → Enable*. SECURITY.md relies on it.
+- [x] **Make the repository public:** *Settings → General → Danger zone → Change visibility*.
+- [x] **Turn on GitHub Pages** from the `/docs` folder on `main` (*Settings → Pages*). The app's *Read the privacy policy* button opens `https://fortunatechick.github.io/AttendEase/privacy.html`. Open it once to confirm.
 
 ## 2. The release signing key (once, then never again)
 
