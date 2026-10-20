@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_theme"
+        android:icon="@drawable/ic_dark_mode"
+        android:title="Dark mode"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_portal"
+        android:title="SAP portal"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_import"
+        android:title="Upload attendance PDF"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_add_subject"
+        android:title="Add subject"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_leaves"
+        android:title="Medical leave"
+        app:showAsAction="never" />
+
+    <!-- Title switches to "Exit guest mode" while it is on -->
+    <item
+        android:id="@+id/action_guest"
+        android:title="Guest mode"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_settings"
+        android:title="Settings"
+        app:showAsAction="never" />
+
+</menu>
