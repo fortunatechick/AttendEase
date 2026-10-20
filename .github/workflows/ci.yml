@@ -17,7 +17,7 @@ jobs:
     name: Unit tests, lint, debug build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - uses: actions/setup-java@v4
         with:
@@ -62,7 +62,7 @@ jobs:
         # 31 is skipped: its emulator image fails to boot on GitHub runners; 32 (12L) covers Android 12.
         api: [21, 23, 26, 29, 32, 33, 35]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - uses: actions/setup-java@v4
         with:
