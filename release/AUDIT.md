@@ -4,6 +4,12 @@ Baseline: `gradlew clean testDebugUnitTest lintDebug assembleDebug assembleRelea
 98 JVM tests pass, lint reports 0 errors and 169 warnings, and the release APK is 13.6 MB.
 No code was changed in this phase.
 
+> **Status after Phases 1–8 (20 October 2026).**
+> - **Blockers B1–B6:** fixed. B3's history clean-up was done once, and a second squash is listed in CHECKLIST.md because older commits still hold real course rows.
+> - **Should-fix S1–S14:** fixed. S3 leaves parser error codes but all text is in resources. S6 still has dialogs that close on rotation, but no data is lost. S12's `commit()` in GuestMode stays deliberately.
+> - **Nice-to-have:** N1–N3 remain as lint warnings. N4 is intended. N5 versions stay pinned. N6 is unreachable (no network).
+> - **Final numbers:** 103 JVM tests and 8 device tests (on the minified release); lint shows 0 errors; the release APK is 8.8 MB.
+
 Severity: **Blocker** = must be fixed before the repo or APK goes public.
 **Should fix** = needed for the "every device" goal. **Nice to have** = polish.
 

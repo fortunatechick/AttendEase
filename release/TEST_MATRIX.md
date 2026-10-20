@@ -24,6 +24,12 @@ AttendEase supports **Android 5.0 (API 21) through Android 16 (API 36)**, one un
 | "Open with" AttendEase from Files: review → save | Same | Pass |
 | Wording check (`WordingInstrumentedTest`): resource sentences match calc's English text | Same | Pass |
 
+| Damaged, empty, missing and oversized (25 MB+) PDFs on the minified release: each ends with a clear reason, no crash (`PdfImportInstrumentedTest`, 6 cases incl. 40 random corruptions) | Emulator, API 37.1 | Pass |
+| Parser fuzzing: random text, 2000 mangled and every truncated report, 3000-row input (`ParserFuzzTest`) | JVM | Pass |
+| Crash report: `am crash`, relaunch shows *AttendEase closed unexpectedly* with *Copy crash report* | Emulator | Pass |
+| Another app sends `file:///data/data/<app>/databases/attendease.db` to the upload screen: refused, normal picker opens instead | Emulator | Pass |
+| First launch after clearing data: welcome dialog with the disclaimer; About screen | Emulator | Pass |
+
 ## Not run locally (owner / CI to cover)
 
 This development machine could only boot one system image (API 37.1). Older images weren't
