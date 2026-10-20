@@ -27,7 +27,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Guest mode: a friend's attendance. Your own data is hidden and untouched; this view is erased when you exit."
+            android:text="@string/main_guest_mode_a_friend_s"
             android:textColor="#FFFFFF"
             android:textAppearance="?attr/textAppearanceBodySmall" />
 
@@ -36,7 +36,7 @@
             style="@style/Widget.Material3.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Exit"
+            android:text="@string/main_exit"
             android:textColor="#FFFFFF" />
     </LinearLayout>
 
@@ -60,7 +60,8 @@
             android:id="@+id/txt_empty_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="No attendance yet"
+            android:text="@string/main_no_attendance_yet"
+            android:accessibilityHeading="true"
             android:textAppearance="?attr/textAppearanceTitleLarge" />
 
         <TextView
@@ -69,14 +70,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:gravity="center"
-            android:text="Upload the attendance PDF from the SAP portal to see where you stand in every subject." />
+            android:text="@string/main_upload_the_attendance_pdf_from" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_import"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Upload attendance PDF" />
+            android:text="@string/main_upload_attendance_pdf" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_add_subject"
@@ -84,7 +85,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Add a subject by hand" />
+            android:text="@string/main_add_a_subject_by_hand" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_portal"
@@ -92,7 +93,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Get the PDF from the SAP portal" />
+            android:text="@string/main_get_the_pdf_from_the" />
     </LinearLayout>
 
 </LinearLayout>

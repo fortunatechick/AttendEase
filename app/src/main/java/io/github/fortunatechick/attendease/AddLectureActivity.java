@@ -40,7 +40,7 @@ public class AddLectureActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_lecture);
-        setTitle("Add lecture");
+        setTitle(R.string.menu_subject_detail_add_lecture);
         showBackArrow();
 
         repo = new AttendanceRepository(this);
@@ -94,13 +94,13 @@ public class AddLectureActivity extends BaseActivity {
         c.setTimeInMillis(dateMillis);
         picker.updateDate(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
         new MaterialAlertDialogBuilder(this)
-                .setTitle("Date")
+                .setTitle(R.string.add_lecture_date)
                 .setView(view)
-                .setPositiveButton("OK", (d, w) -> {
+                .setPositiveButton(R.string.action_ok, (d, w) -> {
                     dateMillis = utcMidnight(picker.getYear(), picker.getMonth(), picker.getDayOfMonth());
                     showWhen();
                 })
-                .setNegativeButton("Cancel", null)
+                .setNegativeButton(R.string.action_cancel, null)
                 .show();
     }
 
@@ -109,13 +109,13 @@ public class AddLectureActivity extends BaseActivity {
         TimePicker picker = view.findViewById(R.id.time_picker);
         setTime(picker, startMinutes / 60, startMinutes % 60);
         new MaterialAlertDialogBuilder(this)
-                .setTitle("Start time")
+                .setTitle(R.string.add_lecture_start_time)
                 .setView(view)
-                .setPositiveButton("OK", (d, w) -> {
+                .setPositiveButton(R.string.action_ok, (d, w) -> {
                     startMinutes = minutesOf(picker);
                     showWhen();
                 })
-                .setNegativeButton("Cancel", null)
+                .setNegativeButton(R.string.action_cancel, null)
                 .show();
     }
 
@@ -165,14 +165,14 @@ public class AddLectureActivity extends BaseActivity {
         }, saved -> {
             if (isDestroyed()) return;
             if (!saved) {
-                Toast.makeText(this, "There's already a " + Formats.component(l.component).toLowerCase()
-                        + " lecture at that time.", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "P".equals(l.component) ? R.string.add_lecture_duplicate_practical
+                        : R.string.add_lecture_duplicate_theory, Toast.LENGTH_LONG).show();
                 return;
             }
             if (another) {
                 startMinutes = (startMinutes + 60) % (24 * 60);
                 showWhen();
-                Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.add_lecture_saved, Toast.LENGTH_SHORT).show();
             } else {
                 finish();
             }

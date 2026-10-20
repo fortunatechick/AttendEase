@@ -1,5 +1,6 @@
 package io.github.fortunatechick.attendease;
 
+import android.view.View;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -25,6 +26,8 @@ import io.github.fortunatechick.attendease.data.Subject;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.slider.Slider;
 
+import com.google.android.material.color.DynamicColors;
+import com.google.android.material.materialswitch.MaterialSwitch;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -45,16 +48,16 @@ public class SettingsActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        setTitle("Settings");
+        setTitle(R.string.menu_main_settings);
         showBackArrow();
         prefs = new Prefs(this);
 
         TextView txtThreshold = findViewById(R.id.txt_threshold);
         Slider slider = findViewById(R.id.slider_threshold);
         slider.setValue(prefs.threshold());
-        txtThreshold.setText(prefs.threshold() + "%");
+        txtThreshold.setText(getString(R.string.percent_value, prefs.threshold()));
         slider.addOnChangeListener((s, value, fromUser) -> {
-            txtThreshold.setText(Math.round(value) + "%");
+            txtThreshold.setText(getString(R.string.percent_value, Math.round(value)));
             if (fromUser) prefs.setThreshold(Math.round(value));
         });
 
@@ -78,15 +81,28 @@ public class SettingsActivity extends BaseActivity {
                 checkedId == R.id.radio_excluded
                         ? ApprovalConvention.EXCLUDED_FROM_TOTAL : ApprovalConvention.COUNTED_AS_ATTENDED));
 
+        if (DynamicColors.isDynamicColorAvailable()) {
+            findViewById(R.id.group_display).setVisibility(View.VISIBLE);
+            MaterialSwitch dynamic = findViewById(R.id.switch_dynamic_color);
+            dynamic.setChecked(ThemeMode.isDynamic(this));
+            dynamic.setOnCheckedChangeListener((b, on) -> {
+                ThemeMode.setDynamic(this, on);
+                // Colours are applied as screens open, so reopen the app from the dashboard.
+                Intent home = new Intent(this, MainActivity.class);
+                home.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(home);
+            });
+        }
+
         findViewById(R.id.btn_check_updates).setOnClickListener(v -> SapPortal.openInBrowser(this, RELEASES_URL));
-        ((TextView) findViewById(R.id.txt_version)).setText("AttendEase " + BuildConfig.VERSION_NAME);
+        ((TextView) findViewById(R.id.txt_version)).setText(getString(R.string.settings_version, BuildConfig.VERSION_NAME));
 
         findViewById(R.id.btn_switch_semester).setOnClickListener(v -> switchSemester());
         findViewById(R.id.btn_new_semester).setOnClickListener(v -> newSemester());
         findViewById(R.id.btn_export).setOnClickListener(v -> exportCsv());
         findViewById(R.id.btn_clear).setOnClickListener(v -> confirmClear());
 
-        StringBuilder about = new StringBuilder("AttendEase works fully offline. Nothing leaves this phone unless you share an export.");
+        StringBuilder about = new StringBuilder(getString(R.string.settings_offline_note));
         if (prefs.studentName() != null) {
             about.append("\n\n").append(prefs.studentName());
             if (prefs.rollNo() != null) about.append(" · ").append(prefs.rollNo());
@@ -105,11 +121,13 @@ public class SettingsActivity extends BaseActivity {
         TextView label = findViewById(R.id.txt_current_semester);
         Background.load(() -> {
             Semester s = repo.currentSemester();
-            if (s == null) return "No semester yet: upload a PDF or add a subject";
+            if (s == null) return getString(R.string.settings_no_semester);
             int count = repo.semesters.subjectCount(s.id);
             int total = repo.semesters.all().size();
-            return s.label + " · " + Formats.plural(count, "subject", "subjects")
-                    + (total > 1 ? " · " + total + " semesters stored" : "");
+            String text = getString(R.string.dot_join, s.label,
+                    getResources().getQuantityString(R.plurals.subjects, count, count));
+            if (total > 1) text = getString(R.string.dot_join, text, getString(R.string.settings_semesters_stored, total));
+            return text;
         }, text -> {
             if (!isDestroyed()) label.setText(text);
         });
@@ -120,8 +138,7 @@ public class SettingsActivity extends BaseActivity {
         Background.load(repo.semesters::all, all -> {
             if (isDestroyed()) return;
             if (all.size() < 2) {
-                Toast.makeText(this, "Only one semester so far. Uploading a PDF from another semester adds one.",
-                        Toast.LENGTH_LONG).show();
+                Toast.makeText(this, R.string.settings_only_one_semester, Toast.LENGTH_LONG).show();
                 return;
             }
             Semester current = repo.currentSemester();
@@ -132,7 +149,7 @@ public class SettingsActivity extends BaseActivity {
                 if (current != null && all.get(i).id == current.id) checked = i;
             }
             new MaterialAlertDialogBuilder(this)
-                    .setTitle("Show semester")
+                    .setTitle(R.string.settings_show_semester)
                     .setSingleChoiceItems(labels, checked, (d, which) -> {
                         repo.setCurrentSemester(all.get(which).id);
                         d.dismiss();
@@ -145,17 +162,16 @@ public class SettingsActivity extends BaseActivity {
     // For starting a semester by hand before its first PDF.
     private void newSemester() {
         EditText input = new EditText(this);
-        input.setHint("e.g. 2027-2028, Semester VI");
+        input.setHint(R.string.settings_new_semester_hint);
         FrameLayout box = new FrameLayout(this);
         int pad = Math.round(20 * getResources().getDisplayMetrics().density);
         box.setPadding(pad, pad / 2, pad, 0);
         box.addView(input);
         new MaterialAlertDialogBuilder(this)
-                .setTitle("New semester")
-                .setMessage("Use the same wording as the PDF header (Academic Year & Academic Session) "
-                        + "so PDFs you upload later land in it.")
+                .setTitle(R.string.settings_new_semester)
+                .setMessage(R.string.settings_new_semester_message)
                 .setView(box)
-                .setPositiveButton("Create", (d, w) -> {
+                .setPositiveButton(R.string.settings_create, (d, w) -> {
                     String label = input.getText().toString().trim();
                     if (label.isEmpty()) return;
                     AttendanceRepository repo = new AttendanceRepository(this);
@@ -165,17 +181,17 @@ public class SettingsActivity extends BaseActivity {
                         repo.setCurrentSemester(s.id);
                     }, this::showCurrentSemester);
                 })
-                .setNegativeButton("Cancel", null)
+                .setNegativeButton(R.string.action_cancel, null)
                 .show();
     }
 
     // Shows what the semester length means for the two common timetables.
     private static void showWeeks(TextView label, TextView hint, int weeks, int threshold) {
-        label.setText(weeks + " weeks");
+        android.content.res.Resources r = label.getResources();
+        label.setText(r.getQuantityString(R.plurals.weeks, weeks, weeks));
         int four = 4 * weeks, three = 3 * weeks;
-        hint.setText("Absences are counted over the whole semester, theory and lab together. "
-                + "4 lectures a week = " + four + " lectures, " + four * (100 - threshold) / 100 + " misses allowed; "
-                + "3 a week = " + three + ", " + three * (100 - threshold) / 100 + " allowed.");
+        hint.setText(r.getString(R.string.settings_weeks_hint, four, four * (100 - threshold) / 100,
+                three, three * (100 - threshold) / 100));
     }
 
     private void exportCsv() {
@@ -210,35 +226,34 @@ public class SettingsActivity extends BaseActivity {
             return file;
         }, file -> {
             if (file == null) {
-                Toast.makeText(this, "Couldn't write the export file.", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, R.string.settings_export_failed, Toast.LENGTH_LONG).show();
                 return;
             }
             Uri uri = FileProvider.getUriForFile(this, getPackageName() + ".fileprovider", file);
             Intent send = new Intent(Intent.ACTION_SEND);
             send.setType("text/csv");
             send.putExtra(Intent.EXTRA_STREAM, uri);
-            send.putExtra(Intent.EXTRA_SUBJECT, "Attendance summary");
+            send.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.settings_export_subject));
             send.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            startActivity(Intent.createChooser(send, "Share attendance CSV"));
+            startActivity(Intent.createChooser(send, getString(R.string.settings_export_chooser)));
         });
     }
 
     private void confirmClear() {
         new MaterialAlertDialogBuilder(this)
-                .setTitle("Clear all data?")
-                .setMessage("Every uploaded lecture, subject and leave request is deleted. "
-                        + "Your settings stay. This can't be undone.")
-                .setPositiveButton("Clear", (d, w) -> {
+                .setTitle(R.string.settings_clear_title)
+                .setMessage(R.string.settings_clear_message)
+                .setPositiveButton(R.string.settings_clear_action, (d, w) -> {
                     AttendanceRepository repo = new AttendanceRepository(this);
                     Background.run(() -> {
                         repo.helper.clearAll();
                         prefs.clearProfile();
                     }, () -> {
-                        Toast.makeText(this, "All data cleared", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, R.string.settings_cleared, Toast.LENGTH_SHORT).show();
                         finish();
                     });
                 })
-                .setNegativeButton("Cancel", null)
+                .setNegativeButton(R.string.action_cancel, null)
                 .show();
     }
 }

@@ -30,14 +30,10 @@ public final class SapPortal {
 
     public static void showAndOpen(Activity activity) {
         new MaterialAlertDialogBuilder(activity)
-                .setTitle("SAP portal")
-                .setMessage("1. Log in with your college ID.\n"
-                        + "2. Open the student attendance report and download it as PDF.\n"
-                        + "3. Tap Open on the downloaded file and choose \"Upload to AttendEase\".\n\n"
-                        + "The PDF goes straight to the upload screen. If it doesn't, use Upload attendance PDF "
-                        + "from this menu and pick it from Downloads.")
-                .setPositiveButton("Open portal", (d, w) -> open(activity))
-                .setNegativeButton("Cancel", null)
+                .setTitle(R.string.menu_main_sap_portal)
+                .setMessage(R.string.portal_steps)
+                .setPositiveButton(R.string.portal_open, (d, w) -> open(activity))
+                .setNegativeButton(R.string.action_cancel, null)
                 .show();
     }
 
@@ -55,7 +51,7 @@ public final class SapPortal {
         try {
             activity.startActivity(intent);
         } catch (ActivityNotFoundException e) {
-            Toast.makeText(activity, "No web browser is installed to open this page.", Toast.LENGTH_LONG).show();
+            Toast.makeText(activity, R.string.portal_no_browser, Toast.LENGTH_LONG).show();
         }
     }
 }

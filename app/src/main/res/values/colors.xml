@@ -4,6 +4,6 @@
     <color name="brand_dark">#0F3C78</color>
     <color name="safe">#2E7D32</color>
     <color name="risk">#C62828</color>
-    <color name="pending">#EF8F00</color>
-    <color name="muted">#757575</color>
+    <color name="pending">#A85400</color>
+    <color name="muted">#6B6B6B</color>
 </resources>

@@ -30,7 +30,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:padding="32dp"
-            android:text="No medical leave requests yet.\n\nWhen you hand in a medical certificate, add it here. The lectures it covers stop counting as absences until the HOD or coordinator decides."
+            android:text="@string/leaves_no_medical_leave_requests_yet"
             android:visibility="gone" />
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
-            android:text="New leave request" />
+            android:text="@string/leaves_new_leave_request" />
     </FrameLayout>
 
 </LinearLayout>

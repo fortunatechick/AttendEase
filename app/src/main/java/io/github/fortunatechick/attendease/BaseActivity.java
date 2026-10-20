@@ -28,7 +28,7 @@ public abstract class BaseActivity extends AppCompatActivity implements DataChan
         if (toolbar != null) {
             setSupportActionBar(toolbar);
             if (GuestMode.isActive(this)) {
-                toolbar.setSubtitle("Guest mode · your own data is untouched");
+                toolbar.setSubtitle(R.string.guest_subtitle);
             }
         }
 

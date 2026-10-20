@@ -150,14 +150,14 @@ public class SubjectDetailActivity extends BaseActivity {
 
         TextView canonical = header.findViewById(R.id.txt_canonical);
         boolean renamed = !data.subject.displayName().equals(data.subject.canonicalName);
-        canonical.setText("Name in the PDF: " + data.subject.canonicalName);
+        canonical.setText(getString(R.string.subject_name_in_pdf, data.subject.canonicalName));
         canonical.setVisibility(renamed ? View.VISIBLE : View.GONE);
 
         AttendanceStats theory = data.summary.theory;
         AttendanceStats practical = data.summary.practical;
-        bindFigure(header.findViewById(R.id.fig_combined), "Combined", data.summary.combined);
-        bindFigure(header.findViewById(R.id.fig_theory), "Theory", theory);
-        bindFigure(header.findViewById(R.id.fig_practical), "Practical", practical);
+        bindFigure(header.findViewById(R.id.fig_combined), getString(R.string.subject_combined), data.summary.combined);
+        bindFigure(header.findViewById(R.id.fig_theory), getString(R.string.component_theory), theory);
+        bindFigure(header.findViewById(R.id.fig_practical), getString(R.string.component_practical), practical);
         bindSemester();
         header.findViewById(R.id.fig_theory).setVisibility(total(theory) > 0 ? View.VISIBLE : View.GONE);
         header.findViewById(R.id.fig_practical).setVisibility(total(practical) > 0 ? View.VISIBLE : View.GONE);
@@ -171,15 +171,15 @@ public class SubjectDetailActivity extends BaseActivity {
         percent.setText(s.displayText());
         percent.setTextColor(color);
 
-        ((TextView) card.findViewById(R.id.fig_counts)).setText(
-                s.decidedAttended() + " / " + s.decidedHeld() + " attended · " + s.missed() + " missed");
+        ((TextView) card.findViewById(R.id.fig_counts)).setText(getString(R.string.subject_counts,
+                s.decidedAttended(), s.decidedHeld(), s.missed()));
 
         TextView pending = card.findViewById(R.id.fig_pending);
         if (s.hasPending()) {
-            pending.setText(s.pendingText()
-                    + "\nConfirmed " + AttendanceStats.formatPercent(s.confirmedPercent())
-                    + " · if approved " + AttendanceStats.formatPercent(s.ifApprovedPercent())
-                    + " · if rejected " + AttendanceStats.formatPercent(s.ifRejectedPercent()));
+            pending.setText(getString(R.string.subject_pending_range, Formats.pending(this, s),
+                    AttendanceStats.formatPercent(s.confirmedPercent()),
+                    AttendanceStats.formatPercent(s.ifApprovedPercent()),
+                    AttendanceStats.formatPercent(s.ifRejectedPercent())));
             pending.setVisibility(View.VISIBLE);
         } else {
             pending.setVisibility(View.GONE);
@@ -188,10 +188,12 @@ public class SubjectDetailActivity extends BaseActivity {
         TextView advice = card.findViewById(R.id.fig_advice);
         advice.setVisibility(View.VISIBLE);
         if (!s.hasData()) {
-            advice.setText("No lectures marked yet");
+            advice.setText(Formats.noLecturesMarked(this));
         } else {
-            String text = s.advice().text();
-            if (s.hasPending()) text += "\nIf the leave is rejected: " + s.worstCaseAdvice().text();
+            String text = Formats.advice(this, s.advice());
+            if (s.hasPending()) {
+                text += "\n" + getString(R.string.subject_if_rejected, Formats.advice(this, s.worstCaseAdvice()));
+            }
             advice.setText(text);
         }
         advice.setTextColor(s.advice().isBelowThreshold()
@@ -206,13 +208,14 @@ public class SubjectDetailActivity extends BaseActivity {
         TextView advice = combined.findViewById(R.id.fig_advice);
         SemesterBudget b = data.budget;
         if (b != null) {
-            String source = data.subject.hasCustomPattern() ? "set by you" : "estimated";
-            semester.setText(b.summaryText() + " (" + source + ")");
+            semester.setText(getString(data.subject.hasCustomPattern()
+                    ? R.string.subject_budget_set_by_you : R.string.subject_budget_estimated,
+                    Formats.budgetSummary(this, b)));
             semester.setVisibility(View.VISIBLE);
-            advice.setText(b.adviceText());
+            advice.setText(Formats.budgetAdvice(this, b));
             advice.setTextColor(Formats.budgetColor(this, b));
         } else {
-            semester.setText("Set lectures per week (⋮ menu) to see the semester budget.");
+            semester.setText(R.string.subject_set_lectures_per_week);
             semester.setVisibility(View.VISIBLE);
         }
 
@@ -227,7 +230,7 @@ public class SubjectDetailActivity extends BaseActivity {
             semester.setVisibility(View.GONE);
             return;
         }
-        semester.setText("Planned: " + perWeek * data.semesterWeeks + " lectures (counts toward the combined limit)");
+        semester.setText(getString(R.string.subject_planned, Formats.lectures(this, perWeek * data.semesterWeeks)));
         semester.setVisibility(View.VISIBLE);
         advice.setVisibility(View.GONE);
     }
@@ -242,25 +245,29 @@ public class SubjectDetailActivity extends BaseActivity {
             theory.setText(String.valueOf(data.pattern.theory));
             lab.setText(String.valueOf(data.pattern.lab));
         }
-        hint.setText(data.estimate == null ? "No lectures recorded yet to estimate from."
-                : "Estimated from the PDF: " + data.estimate.theory + " theory + " + data.estimate.lab
-                + " lab a week. Over " + data.semesterWeeks + " weeks, 4 a week is 60 lectures"
-                + " (12 misses allowed) and 3 a week is 45 (9 allowed).");
+        // Worked examples use this semester's length and the attendance target.
+        int weeks = data.semesterWeeks;
+        int allowedShare = 100 - data.summary.combined.thresholdPercent;
+        String examples = getString(R.string.weekly_examples, weeks, 4 * weeks, 4 * weeks * allowedShare / 100,
+                3 * weeks, 3 * weeks * allowedShare / 100);
+        hint.setText(data.estimate == null
+                ? getString(R.string.weekly_no_estimate) + " " + examples
+                : getString(R.string.weekly_estimate, data.estimate.theory, data.estimate.lab) + " " + examples);
 
         new MaterialAlertDialogBuilder(this)
-                .setTitle("Lectures per week")
+                .setTitle(R.string.menu_subject_detail_lectures_per_week)
                 .setView(view)
-                .setPositiveButton("Save", (d, w) -> {
+                .setPositiveButton(R.string.action_save, (d, w) -> {
                     Integer t = parseCount(theory.getText().toString());
                     Integer l = parseCount(lab.getText().toString());
                     Background.run(() -> {
                         repo.subjects.setWeeklyPattern(subjectId, t == null ? 0 : t, l == null ? 0 : l);
                     }, this::load);
                 })
-                .setNeutralButton("Use estimate", (d, w) -> Background.run(() -> {
+                .setNeutralButton(R.string.weekly_use_estimate, (d, w) -> Background.run(() -> {
                     repo.subjects.setWeeklyPattern(subjectId, null, null);
                 }, this::load))
-                .setNegativeButton("Cancel", null)
+                .setNegativeButton(R.string.action_cancel, null)
                 .show();
     }
 
@@ -290,8 +297,7 @@ public class SubjectDetailActivity extends BaseActivity {
             pendingScroll = null;
         }
         ((TextView) header.findViewById(R.id.txt_list_hint)).setText(data.lectures.isEmpty()
-                ? "No lectures yet. Use Add lecture to record them by hand, or upload a PDF."
-                : "Long-press a lecture to change its status or mark a medical leave.");
+                ? R.string.subject_no_lectures_hint : R.string.detail_header_long_press_a_lecture_to);
     }
 
     private static boolean matchesFilter(String status, int chipId) {
@@ -313,30 +319,30 @@ public class SubjectDetailActivity extends BaseActivity {
             showLeaveOutcomeOptions(lecture);
             return;
         }
-        String when = Formats.date(lecture.dateMillis) + ", " + Formats.time(lecture.startTime);
+        String when = getString(R.string.date_time, Formats.date(lecture.dateMillis), Formats.time(lecture.startTime));
 
         List<String> labels = new ArrayList<>();
         List<String> statuses = new ArrayList<>();
-        labels.add("Present");
+        labels.add(getString(R.string.status_present));
         statuses.add(Status.PRESENT);
-        labels.add("Absent");
+        labels.add(getString(R.string.status_absent));
         statuses.add(Status.ABSENT);
-        labels.add("Not updated yet");
+        labels.add(getString(R.string.lecture_not_updated_yet));
         statuses.add(Status.NOT_UPDATED);
         boolean canReset = lecture.manualOverride && lecture.sourceStatus != null && lecture.srNo > 0;
         if (canReset) {
-            labels.add("Back to PDF status (" + Formats.statusLabel(Status.fromSource(lecture.sourceStatus)) + ")");
+            labels.add(getString(R.string.lecture_back_to_pdf, Formats.statusLabel(this, Status.fromSource(lecture.sourceStatus))));
             statuses.add(null);
         }
-        labels.add("Medical leave submitted…");
+        labels.add(getString(R.string.lecture_leave_submitted));
         statuses.add(LEAVE);
         if (lecture.isHandAdded()) {
-            labels.add("Delete this lecture");
+            labels.add(getString(R.string.lecture_delete));
             statuses.add(DELETE);
         }
 
         new MaterialAlertDialogBuilder(this)
-                .setTitle(when + " · " + Formats.component(lecture.component))
+                .setTitle(getString(R.string.dot_join, when, Formats.component(this, lecture.component)))
                 .setItems(labels.toArray(new String[0]), (d, which) -> {
                     String chosen = statuses.get(which);
                     if (LEAVE.equals(chosen)) {
@@ -360,9 +366,9 @@ public class SubjectDetailActivity extends BaseActivity {
 
     // Marks the lecture as covered by a medical certificate that's awaiting a decision.
     private void askSubmittedTo(Lecture lecture) {
-        String[] options = {"HOD", "Course Coordinator"};
+        String[] options = {getString(R.string.submitted_to_hod), getString(R.string.submitted_to_coordinator)};
         new MaterialAlertDialogBuilder(this)
-                .setTitle("Certificate submitted to")
+                .setTitle(R.string.new_leave_certificate_submitted_to)
                 .setItems(options, (d, which) -> {
                     String to = which == 0 ? LeaveRequest.TO_HOD : LeaveRequest.TO_COORDINATOR;
                     LeaveRepository leaveRepo = new LeaveRepository(this);
@@ -371,19 +377,18 @@ public class SubjectDetailActivity extends BaseActivity {
                         return id;
                     }, id -> {
                         if (isDestroyed()) return;
-                        Toast.makeText(this, id < 0 ? "This lecture can't be put on leave"
-                                : "Marked as medical leave, awaiting decision. Long-press it again once you know the outcome.",
+                        Toast.makeText(this, id < 0 ? R.string.lecture_cannot_leave : R.string.lecture_marked_leave,
                                 Toast.LENGTH_LONG).show();
                         load();
                     });
                 })
-                .setNegativeButton("Cancel", null)
+                .setNegativeButton(R.string.action_cancel, null)
                 .show();
     }
 
     // For a lecture on medical leave: record the outcome right here.
     private void showLeaveOutcomeOptions(Lecture lecture) {
-        String when = Formats.date(lecture.dateMillis) + ", " + Formats.time(lecture.startTime);
+        String when = getString(R.string.date_time, Formats.date(lecture.dateMillis), Formats.time(lecture.startTime));
         boolean pending = Status.PENDING_LEAVE.equals(lecture.effectiveStatus);
         LeaveRepository leaveRepo = new LeaveRepository(this);
         Long leaveId = lecture.leaveId;
@@ -392,21 +397,21 @@ public class SubjectDetailActivity extends BaseActivity {
         List<String> labels = new ArrayList<>();
         List<String> actions = new ArrayList<>();
         if (pending) {
-            labels.add("Leave approved");
+            labels.add(getString(R.string.status_leave_approved));
             actions.add(LeaveRules.APPROVED);
         } else {
-            labels.add("Back to awaiting decision");
+            labels.add(getString(R.string.lecture_back_to_awaiting));
             actions.add(LeaveRules.PENDING);
         }
-        labels.add("Leave rejected (counts as absent again)");
+        labels.add(getString(R.string.lecture_leave_rejected));
         actions.add(LeaveRules.REJECTED);
-        labels.add("Remove from the leave (I didn't submit for this one)");
+        labels.add(getString(R.string.lecture_remove_from_leave));
         actions.add(REMOVE);
-        labels.add("Open the leave request");
+        labels.add(getString(R.string.lecture_open_leave));
         actions.add(OPEN);
 
         new MaterialAlertDialogBuilder(this)
-                .setTitle(when + " · " + (pending ? "medical leave awaiting decision" : "medical leave approved"))
+                .setTitle(getString(R.string.dot_join, when, getString(pending ? R.string.lecture_leave_awaiting : R.string.lecture_leave_approved_lower)))
                 .setItems(labels.toArray(new String[0]), (d, which) -> {
                     String action = actions.get(which);
                     if (OPEN.equals(action)) {
@@ -441,26 +446,25 @@ public class SubjectDetailActivity extends BaseActivity {
             List<Subject> others = new ArrayList<>();
             for (Subject s : all) if (s.id != subjectId) others.add(s);
             if (others.isEmpty()) {
-                Toast.makeText(this, "There's no other subject in this semester to merge with.", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, R.string.merge_nothing_to_merge, Toast.LENGTH_LONG).show();
                 return;
             }
             String[] names = new String[others.size()];
             for (int i = 0; i < others.size(); i++) names[i] = others.get(i).displayName();
             new MaterialAlertDialogBuilder(this)
-                    .setTitle("Merge \"" + data.subject.displayName() + "\" into")
+                    .setTitle(getString(R.string.merge_pick_title, data.subject.displayName()))
                     .setItems(names, (d, which) -> confirmMerge(others.get(which)))
-                    .setNegativeButton("Cancel", null)
+                    .setNegativeButton(R.string.action_cancel, null)
                     .show();
         });
     }
 
     private void confirmMerge(Subject into) {
         new MaterialAlertDialogBuilder(this)
-                .setTitle("Merge into " + into.displayName() + "?")
-                .setMessage("All " + data.lectures.size() + " lectures of " + data.subject.displayName()
-                        + " move to " + into.displayName() + ". Future PDF rows named \""
-                        + data.subject.canonicalName + "\" will go there too.")
-                .setPositiveButton("Merge", (d, w) -> Background.run(() -> {
+                .setTitle(getString(R.string.merge_confirm_title, into.displayName()))
+                .setMessage(getResources().getQuantityString(R.plurals.merge_confirm_message, data.lectures.size(),
+                        data.lectures.size(), data.subject.displayName(), into.displayName(), data.subject.canonicalName))
+                .setPositiveButton(R.string.merge_action, (d, w) -> Background.run(() -> {
                     repo.mergeSubjects(subjectId, into.id);
                 }, () -> {
                     Intent intent = new Intent(this, SubjectDetailActivity.class);
@@ -468,7 +472,7 @@ public class SubjectDetailActivity extends BaseActivity {
                     startActivity(intent);
                     finish();
                 }))
-                .setNegativeButton("Cancel", null)
+                .setNegativeButton(R.string.action_cancel, null)
                 .show();
     }
 
@@ -476,15 +480,16 @@ public class SubjectDetailActivity extends BaseActivity {
         if (data == null) return;
         boolean fromPdf = false;
         for (Lecture l : data.lectures) if (!l.isHandAdded()) fromPdf = true;
-        String message = "Deletes the subject and all " + data.lectures.size() + " of its lectures.";
-        if (fromPdf) message += " It will come back the next time you upload a PDF that lists it.";
+        String message = getResources().getQuantityString(R.plurals.delete_subject_message,
+                data.lectures.size(), data.lectures.size());
+        if (fromPdf) message += " " + getString(R.string.delete_subject_comes_back);
         new MaterialAlertDialogBuilder(this)
-                .setTitle("Delete " + data.subject.displayName() + "?")
+                .setTitle(getString(R.string.delete_subject_title, data.subject.displayName()))
                 .setMessage(message)
-                .setPositiveButton("Delete", (d, w) -> Background.run(() -> {
+                .setPositiveButton(R.string.action_delete, (d, w) -> Background.run(() -> {
                     repo.subjects.delete(subjectId);   // lectures go with it (ON DELETE CASCADE)
                 }, this::finish))
-                .setNegativeButton("Cancel", null)
+                .setNegativeButton(R.string.action_cancel, null)
                 .show();
     }
 
@@ -500,20 +505,19 @@ public class SubjectDetailActivity extends BaseActivity {
         box.addView(input);
 
         new MaterialAlertDialogBuilder(this)
-                .setTitle("Rename subject")
-                .setMessage("Shown everywhere in the app. PDF rows still match on \""
-                        + data.subject.canonicalName + "\".")
+                .setTitle(R.string.menu_subject_detail_rename_subject)
+                .setMessage(getString(R.string.rename_message, data.subject.canonicalName))
                 .setView(box)
-                .setPositiveButton("Save", (d, w) -> {
+                .setPositiveButton(R.string.action_save, (d, w) -> {
                     String name = input.getText().toString().trim();
                     if (name.isEmpty()) name = data.subject.canonicalName;
                     String finalName = name;
                     Background.run(() -> repo.subjects.setDisplayName(subjectId, finalName), this::load);
                 })
-                .setNeutralButton("Use PDF name", (d, w) ->
+                .setNeutralButton(R.string.rename_use_pdf_name, (d, w) ->
                         Background.run(() -> repo.subjects.setDisplayName(subjectId, data.subject.canonicalName),
                                 this::load))
-                .setNegativeButton("Cancel", null)
+                .setNegativeButton(R.string.action_cancel, null)
                 .show();
     }
 

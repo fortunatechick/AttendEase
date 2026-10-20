@@ -24,7 +24,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Dates missed"
+                android:text="@string/new_leave_dates_missed"
+                android:accessibilityHeading="true"
                 android:textAppearance="?attr/textAppearanceTitleSmall" />
 
             <LinearLayout
@@ -53,7 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:hint="Reason (e.g. viral fever)">
+                android:hint="@string/new_leave_reason_e_g_viral_fever">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_reason"
@@ -66,7 +67,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Certificate submitted to"
+                android:text="@string/new_leave_certificate_submitted_to"
+                android:accessibilityHeading="true"
                 android:textAppearance="?attr/textAppearanceTitleSmall" />
 
             <RadioGroup
@@ -81,20 +83,21 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
                     android:checked="true"
-                    android:text="HOD" />
+                    android:text="@string/new_leave_hod" />
 
                 <RadioButton
                     android:id="@+id/radio_coordinator"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Course Coordinator" />
+                    android:text="@string/new_leave_course_coordinator" />
             </RadioGroup>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Submitted on"
+                android:text="@string/new_leave_submitted_on"
+                android:accessibilityHeading="true"
                 android:textAppearance="?attr/textAppearanceTitleSmall" />
 
             <com.google.android.material.button.MaterialButton
@@ -109,7 +112,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="Next: choose lectures" />
+                android:text="@string/new_leave_next_choose_lectures" />
         </LinearLayout>
     </ScrollView>
 
@@ -144,7 +147,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="6dp"
                 android:layout_weight="1"
-                android:text="All" />
+                android:text="@string/new_leave_all" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_select_none"
@@ -153,7 +156,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="6dp"
                 android:layout_weight="1"
-                android:text="None" />
+                android:text="@string/new_leave_none" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_by_subject"
@@ -161,7 +164,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.4"
-                android:text="By subject" />
+                android:text="@string/new_leave_by_subject" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -177,7 +180,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="12dp"
-            android:text="Save leave request" />
+            android:text="@string/new_leave_save_leave_request" />
     </LinearLayout>
 
 </LinearLayout>

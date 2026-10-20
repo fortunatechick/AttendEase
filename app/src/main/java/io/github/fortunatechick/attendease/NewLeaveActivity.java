@@ -64,7 +64,7 @@ public class NewLeaveActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_leave);
-        setTitle("New leave request");
+        setTitle(R.string.leaves_new_leave_request);
         showBackArrow();
 
         stepDetails = findViewById(R.id.step_details);
@@ -76,17 +76,17 @@ public class NewLeaveActivity extends BaseActivity {
         groupSubmittedTo = findViewById(R.id.group_submitted_to);
         txtSelection = findViewById(R.id.txt_selection);
 
-        btnFrom.setOnClickListener(v -> pickDate("From", fromDate, d -> {
+        btnFrom.setOnClickListener(v -> pickDate(getString(R.string.leave_from), fromDate, d -> {
             fromDate = d;
             if (toDate < fromDate) toDate = fromDate;
             showDates();
         }));
-        btnTo.setOnClickListener(v -> pickDate("To", toDate, d -> {
+        btnTo.setOnClickListener(v -> pickDate(getString(R.string.leave_to), toDate, d -> {
             toDate = d;
             if (fromDate > toDate) fromDate = toDate;
             showDates();
         }));
-        btnSubmittedOn.setOnClickListener(v -> pickDate("Submitted on", submittedOn, d -> {
+        btnSubmittedOn.setOnClickListener(v -> pickDate(getString(R.string.new_leave_submitted_on), submittedOn, d -> {
             submittedOn = d;
             showDates();
         }));
@@ -174,8 +174,8 @@ public class NewLeaveActivity extends BaseActivity {
     }
 
     private void showDates() {
-        btnFrom.setText("From  " + Formats.shortDate(fromDate));
-        btnTo.setText("To  " + Formats.shortDate(toDate));
+        btnFrom.setText(getString(R.string.leave_from_date, Formats.shortDate(fromDate)));
+        btnTo.setText(getString(R.string.leave_to_date, Formats.shortDate(toDate)));
         btnSubmittedOn.setText(Formats.date(submittedOn));
     }
 
@@ -189,9 +189,9 @@ public class NewLeaveActivity extends BaseActivity {
         new MaterialAlertDialogBuilder(this)
                 .setTitle(title)
                 .setView(view)
-                .setPositiveButton("OK", (d, w) ->
+                .setPositiveButton(R.string.action_ok, (d, w) ->
                         onPicked.accept(utcMidnight(picker.getYear(), picker.getMonth(), picker.getDayOfMonth())))
-                .setNegativeButton("Cancel", null)
+                .setNegativeButton(R.string.action_cancel, null)
                 .show();
     }
 
@@ -207,8 +207,7 @@ public class NewLeaveActivity extends BaseActivity {
             if (isDestroyed()) return;
             List<Lecture> lectures = data.lectures;
             if (lectures.isEmpty()) {
-                Toast.makeText(this, "No lectures recorded between those dates. "
-                        + "Upload a newer PDF or add the lectures by hand first.", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, R.string.leave_no_lectures_in_range, Toast.LENGTH_LONG).show();
                 return;
             }
             subjectNames.clear();
@@ -257,9 +256,9 @@ public class NewLeaveActivity extends BaseActivity {
         }
 
         new MaterialAlertDialogBuilder(this)
-                .setTitle("Select lectures of")
+                .setTitle(R.string.leave_select_lectures_of)
                 .setMultiChoiceItems(labels, checked, (d, which, isChecked) -> checked[which] = isChecked)
-                .setPositiveButton("Select", (d, w) -> {
+                .setPositiveButton(R.string.leave_select, (d, w) -> {
                     Set<Long> chosenSubjects = new HashSet<>();
                     for (int i = 0; i < ids.size(); i++) if (checked[i]) chosenSubjects.add(ids.get(i));
                     selected.clear();
@@ -270,7 +269,7 @@ public class NewLeaveActivity extends BaseActivity {
                     }
                     selectionChanged();
                 })
-                .setNegativeButton("Cancel", null)
+                .setNegativeButton(R.string.action_cancel, null)
                 .show();
     }
 
@@ -279,20 +278,22 @@ public class NewLeaveActivity extends BaseActivity {
         for (Lecture l : rangeLectures) {
             if (selected.contains(l.id) && Status.ABSENT.equals(l.effectiveStatus)) absent++;
         }
-        txtSelection.setText(selected.size() + " of " + rangeLectures.size() + " lectures selected"
-                + (absent > 0 ? " · " + absent + " marked absent" : ""));
+        String text = getResources().getQuantityString(R.plurals.leave_selected, rangeLectures.size(),
+                selected.size(), rangeLectures.size());
+        if (absent > 0) text = getString(R.string.dot_join, text, getString(R.string.leave_marked_absent, absent));
+        txtSelection.setText(text);
         adapter.notifyDataSetChanged();
     }
 
     private void showStep(int step) {
         stepDetails.setVisibility(step == 1 ? View.VISIBLE : View.GONE);
         stepLectures.setVisibility(step == 2 ? View.VISIBLE : View.GONE);
-        setTitle(step == 1 ? "New leave request" : "Lectures covered");
+        setTitle(step == 1 ? R.string.leaves_new_leave_request : R.string.leave_lectures_covered);
     }
 
     private void save() {
         if (selected.isEmpty()) {
-            Toast.makeText(this, "Tick at least one lecture the leave covers.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.leave_tick_one, Toast.LENGTH_SHORT).show();
             return;
         }
         LeaveRequest r = new LeaveRequest();
@@ -311,8 +312,8 @@ public class NewLeaveActivity extends BaseActivity {
         Background.run(() -> {
             repo.create(r, ids);
         }, () -> {
-            Toast.makeText(this, Formats.plural(ids.size(), "lecture is", "lectures are")
-                    + " now awaiting a decision", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getResources().getQuantityString(R.plurals.leave_saved, ids.size(), ids.size()),
+                    Toast.LENGTH_LONG).show();
             finish();
         });
     }
@@ -366,10 +367,10 @@ public class NewLeaveActivity extends BaseActivity {
             check.setChecked(selected.contains(l.id));
             check.setEnabled(eligible);
             ((TextView) v.findViewById(R.id.txt_subject)).setText(subjectNames.get(l.subjectId));
-            String detail = Formats.component(l.component) + " · " + Formats.time(l.startTime)
-                    + (eligible ? "" : " · already in a leave request");
+            String detail = getString(R.string.dot_join, Formats.component(v.getContext(), l.component), Formats.time(l.startTime));
+            if (!eligible) detail = getString(R.string.dot_join, detail, getString(R.string.leave_already_in_request));
             ((TextView) v.findViewById(R.id.txt_detail)).setText(detail);
-            Formats.tintChip(v.findViewById(R.id.chip_status), Formats.statusLabel(l.effectiveStatus),
+            Formats.tintChip(v.findViewById(R.id.chip_status), Formats.statusLabel(v.getContext(), l.effectiveStatus),
                     Formats.statusColor(v.getContext(), l.effectiveStatus));
             v.setAlpha(eligible ? 1f : 0.5f);
             v.setOnClickListener(eligible ? x -> {

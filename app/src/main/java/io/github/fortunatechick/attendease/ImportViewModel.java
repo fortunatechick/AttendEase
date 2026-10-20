@@ -57,12 +57,10 @@ public class ImportViewModel extends AndroidViewModel {
                 String text = PdfTextExtractor.extract(getApplication().getContentResolver(), uri);
                 ParseResult parsed = new AttendanceParser().parse(text);
                 if (parsed.isEmpty()) {
-                    String reason = text.trim().isEmpty()
-                            ? "This PDF has no readable text. It may be a scanned copy or a photo saved as PDF."
-                            : "No attendance rows were found in this PDF. It doesn't look like the SAP "
-                              + "student attendance report.";
-                    throw new PdfTextExtractor.ImportException(reason
-                            + " Download the Student Attendance report from the portal and import that file.");
+                    String reason = getApplication().getString(text.trim().isEmpty()
+                            ? R.string.import_no_text : R.string.import_no_rows);
+                    throw new PdfTextExtractor.ImportException(reason + " "
+                            + getApplication().getString(R.string.import_download_again));
                 }
                 AttendanceRepository.ImportPreview p = repository.previewImport(parsed);
                 mainHandler.post(() -> {
@@ -74,8 +72,7 @@ public class ImportViewModel extends AndroidViewModel {
             } catch (PdfTextExtractor.ImportException e) {
                 postError(e.getMessage());
             } catch (RuntimeException e) {
-                postError("Something went wrong while reading this file (" + e.getClass().getSimpleName()
-                        + "). Try downloading the report again.");
+                postError(getApplication().getString(R.string.import_read_failed, e.getClass().getSimpleName()));
             }
         });
     }
@@ -94,7 +91,7 @@ public class ImportViewModel extends AndroidViewModel {
                     stage.setValue(Stage.SAVED);
                 });
             } catch (RuntimeException e) {
-                postError("Saving failed, and nothing was changed (" + e.getClass().getSimpleName() + ").");
+                postError(getApplication().getString(R.string.import_save_failed, e.getClass().getSimpleName()));
             }
         });
     }

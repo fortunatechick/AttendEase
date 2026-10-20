@@ -9,3 +9,6 @@
 -keep class io.github.fortunatechick.attendease.data.PdfTextExtractor$* { *; }
 -keep class androidx.tracing.** { *; }
 -keep class androidx.concurrent.futures.** { *; }
+-keep class io.github.fortunatechick.attendease.calc.** { *; }
+-keep class io.github.fortunatechick.attendease.Formats { *; }
+-keep class io.github.fortunatechick.attendease.R$* { *; }

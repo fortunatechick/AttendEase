@@ -1,11 +1,14 @@
 package io.github.fortunatechick.attendease;
 
+import android.content.Context;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.core.view.ViewCompat;
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -79,18 +82,25 @@ public class LectureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             StringBuilder sb = new StringBuilder();
             sb.append(Formats.time(l.startTime));
             if (l.endTime != null) sb.append(" – ").append(Formats.time(l.endTime));
-            sb.append(" · ").append(Formats.component(l.component));
-            if (l.isHandAdded()) sb.append(" · added by hand");
-            else if (l.manualOverride) sb.append(" · changed by you");
+            Context context = itemView.getContext();
+            sb.append(" · ").append(Formats.component(context, l.component));
+            if (l.isHandAdded()) sb.append(" · ").append(context.getString(R.string.lecture_added_by_hand));
+            else if (l.manualOverride) sb.append(" · ").append(context.getString(R.string.lecture_changed_by_you));
             detail.setText(sb.toString());
 
-            Formats.tintChip(status, Formats.statusLabel(l.effectiveStatus),
+            Formats.tintChip(status, Formats.statusLabel(context, l.effectiveStatus),
                     Formats.statusColor(itemView.getContext(), l.effectiveStatus));
 
             itemView.setOnLongClickListener(v -> {
                 onLongPress.accept(l);
                 return true;
             });
+            // TalkBack says "double-tap and hold to change status or mark medical leave".
+            ViewCompat.replaceAccessibilityAction(itemView, AccessibilityNodeInfoCompat.AccessibilityActionCompat.ACTION_LONG_CLICK,
+                    context.getString(R.string.a11y_change_status), (view, args) -> {
+                        onLongPress.accept(l);
+                        return true;
+                    });
             // A mouse right-click or two-finger trackpad tap opens the same menu.
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 itemView.setOnContextClickListener(v -> {

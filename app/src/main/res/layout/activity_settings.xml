@@ -24,7 +24,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Attendance target"
+                android:text="@string/settings_attendance_target"
+                android:accessibilityHeading="true"
                 android:textAppearance="?attr/textAppearanceTitleMedium" />
 
             <TextView
@@ -35,6 +36,7 @@
 
             <com.google.android.material.slider.Slider
                 android:id="@+id/slider_threshold"
+                android:contentDescription="@string/settings_attendance_target"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:stepSize="1"
@@ -45,7 +47,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Your college's compulsory attendance. 80% for NMIMS."
+                android:text="@string/settings_target_hint"
                 android:textAppearance="?attr/textAppearanceBodySmall" />
 
             <com.google.android.material.divider.MaterialDivider
@@ -58,7 +60,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Semester length"
+                android:text="@string/settings_semester_length"
+                android:accessibilityHeading="true"
                 android:textAppearance="?attr/textAppearanceTitleMedium" />
 
             <TextView
@@ -69,6 +72,7 @@
 
             <com.google.android.material.slider.Slider
                 android:id="@+id/slider_weeks"
+                android:contentDescription="@string/settings_semester_length"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:stepSize="1"
@@ -92,7 +96,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="When a medical leave is approved"
+                android:text="@string/settings_when_a_medical_leave_is"
+                android:accessibilityHeading="true"
                 android:textAppearance="?attr/textAppearanceTitleMedium" />
 
             <RadioGroup
@@ -105,13 +110,13 @@
                     android:id="@+id/radio_counted"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Count the lectures as attended" />
+                    android:text="@string/settings_count_the_lectures_as_attended" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
-                    android:text="They stay in the total and count as present. 26/33 with 2 approved becomes 28/33."
+                    android:text="@string/settings_they_stay_in_the_total"
                     android:textAppearance="?attr/textAppearanceBodySmall" />
 
                 <RadioButton
@@ -119,13 +124,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Remove the lectures from the total" />
+                    android:text="@string/settings_remove_the_lectures_from_the" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
-                    android:text="As if they were never held. 26/33 with 2 approved becomes 26/31."
+                    android:text="@string/settings_as_if_they_were_never"
                     android:textAppearance="?attr/textAppearanceBodySmall" />
             </RadioGroup>
 
@@ -139,7 +144,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Semester"
+                android:text="@string/settings_semester"
+                android:accessibilityHeading="true"
                 android:textAppearance="?attr/textAppearanceTitleMedium" />
 
             <TextView
@@ -152,7 +158,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Each PDF is filed under the semester named in its header, so subjects and electives from different semesters never mix."
+                android:text="@string/settings_each_pdf_is_filed_under"
                 android:textAppearance="?attr/textAppearanceBodySmall" />
 
             <LinearLayout
@@ -168,7 +174,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:layout_weight="1"
-                    android:text="Switch" />
+                    android:text="@string/settings_switch" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_new_semester"
@@ -176,7 +182,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="New semester" />
+                    android:text="@string/settings_new_semester" />
             </LinearLayout>
 
             <com.google.android.material.divider.MaterialDivider
@@ -185,11 +191,48 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp" />
 
+            <!-- Display -->
+            <LinearLayout
+                android:id="@+id/group_display"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:accessibilityHeading="true"
+                    android:text="@string/settings_display"
+                    android:textAppearance="?attr/textAppearanceTitleMedium" />
+
+                <com.google.android.material.materialswitch.MaterialSwitch
+                    android:id="@+id/switch_dynamic_color"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:minHeight="48dp"
+                    android:text="@string/settings_dynamic_color" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/settings_dynamic_color_hint"
+                    android:textAppearance="?attr/textAppearanceBodySmall" />
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp" />
+            </LinearLayout>
+
             <!-- Data -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Data"
+                android:text="@string/settings_data"
+                android:accessibilityHeading="true"
                 android:textAppearance="?attr/textAppearanceTitleMedium" />
 
             <com.google.android.material.button.MaterialButton
@@ -198,7 +241,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Export CSV (opens in Excel)" />
+                android:text="@string/settings_export_csv_opens_in_excel" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_clear"
@@ -206,7 +249,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Clear all data"
+                android:text="@string/settings_clear_all_data"
                 android:textColor="@color/risk" />
 
             <TextView
@@ -235,7 +278,7 @@
                     style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Check for updates" />
+                    android:text="@string/settings_check_for_updates" />
             </LinearLayout>
 
             <TextView
@@ -244,7 +287,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:autoLink="web"
-                android:text="Made by Om Chaudhari\nhttps://github.com/fortunatechick/AttendEase"
+                android:text="@string/settings_credit"
                 android:textAppearance="?attr/textAppearanceBodySmall"
                 android:textColorLink="@color/brand" />
         </LinearLayout>

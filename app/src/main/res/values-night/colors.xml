@@ -1,7 +1,7 @@
 <resources>
     <!-- Slightly brighter on a dark background; still dark enough for white chip text -->
     <color name="safe">#43A047</color>
-    <color name="risk">#E53935</color>
+    <color name="risk">#EF5350</color>
     <color name="pending">#FB8C00</color>
     <color name="muted">#9E9E9E</color>
 </resources>

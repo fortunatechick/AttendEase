@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="12dp"
             android:layout_weight="1"
-            android:hint="Theory">
+            android:hint="@string/weekly_pattern_theory">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_theory"
@@ -31,7 +31,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="Lab">
+            android:hint="@string/weekly_pattern_lab">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_lab"

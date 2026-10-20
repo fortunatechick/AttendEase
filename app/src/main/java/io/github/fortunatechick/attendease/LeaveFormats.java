@@ -12,21 +12,21 @@ final class LeaveFormats {
     private LeaveFormats() {
     }
 
-    static String range(LeaveRequest r) {
+    static String range(Context context, LeaveRequest r) {
         if (r.fromDate == r.toDate) return Formats.date(r.fromDate);
-        return Formats.shortDate(r.fromDate) + " – " + Formats.date(r.toDate);
+        return context.getString(R.string.date_range, Formats.shortDate(r.fromDate), Formats.date(r.toDate));
     }
 
-    static String statusLabel(String status) {
+    static String statusLabel(Context context, String status) {
         switch (status) {
             case LeaveRequest.APPROVED:
-                return "APPROVED";
+                return context.getString(R.string.leave_status_approved);
             case LeaveRequest.REJECTED:
-                return "REJECTED";
+                return context.getString(R.string.leave_status_rejected);
             case LeaveRequest.PARTIAL:
-                return "PARTIAL";
+                return context.getString(R.string.leave_status_partial);
             default:
-                return "AWAITING DECISION";
+                return context.getString(R.string.leave_status_awaiting);
         }
     }
 
@@ -43,9 +43,14 @@ final class LeaveFormats {
         }
     }
 
-    static String decisionLabel(String decision) {
-        if (LeaveRules.APPROVED.equals(decision)) return "Approved";
-        if (LeaveRules.REJECTED.equals(decision)) return "Rejected";
-        return "Pending";
+    static String decisionLabel(Context context, String decision) {
+        if (LeaveRules.APPROVED.equals(decision)) return context.getString(R.string.decision_approved);
+        if (LeaveRules.REJECTED.equals(decision)) return context.getString(R.string.decision_rejected);
+        return context.getString(R.string.decision_pending);
+    }
+
+    static String submittedTo(Context context, LeaveRequest r) {
+        return context.getString(LeaveRequest.TO_HOD.equals(r.submittedTo)
+                ? R.string.submitted_to_hod : R.string.submitted_to_coordinator);
     }
 }

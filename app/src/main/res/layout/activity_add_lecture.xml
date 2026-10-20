@@ -23,20 +23,22 @@
                 android:id="@+id/txt_subject"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:accessibilityHeading="true"
                 android:textAppearance="?attr/textAppearanceTitleLarge" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="For lectures the PDF hasn't caught up on yet. When a later PDF includes the same lecture, it replaces this entry instead of counting twice."
+                android:text="@string/add_lecture_for_lectures_the_pdf_hasn"
                 android:textAppearance="?attr/textAppearanceBodySmall" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="When"
+                android:text="@string/add_lecture_when"
+                android:accessibilityHeading="true"
                 android:textAppearance="?attr/textAppearanceTitleSmall" />
 
             <LinearLayout
@@ -65,7 +67,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="Type"
+                android:text="@string/add_lecture_type"
+                android:accessibilityHeading="true"
                 android:textAppearance="?attr/textAppearanceTitleSmall" />
 
             <RadioGroup
@@ -80,20 +83,21 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
                     android:checked="true"
-                    android:text="Theory" />
+                    android:text="@string/add_lecture_theory" />
 
                 <RadioButton
                     android:id="@+id/radio_practical"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Practical" />
+                    android:text="@string/add_lecture_practical" />
             </RadioGroup>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="Attendance"
+                android:text="@string/add_lecture_attendance"
+                android:accessibilityHeading="true"
                 android:textAppearance="?attr/textAppearanceTitleSmall" />
 
             <RadioGroup
@@ -108,20 +112,20 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
                     android:checked="true"
-                    android:text="Present" />
+                    android:text="@string/add_lecture_present" />
 
                 <RadioButton
                     android:id="@+id/radio_absent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
-                    android:text="Absent" />
+                    android:text="@string/add_lecture_absent" />
 
                 <RadioButton
                     android:id="@+id/radio_not_updated"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Not sure" />
+                    android:text="@string/add_lecture_not_sure" />
             </RadioGroup>
 
             <com.google.android.material.button.MaterialButton
@@ -129,14 +133,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="28dp"
-                android:text="Save" />
+                android:text="@string/add_lecture_save" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_save_another"
                 style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Save and add another" />
+                android:text="@string/add_lecture_save_and_add_another" />
         </LinearLayout>
     </ScrollView>
 

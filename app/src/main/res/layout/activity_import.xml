@@ -47,7 +47,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Couldn't read this file"
+            android:text="@string/import_couldn_t_read_this_file"
+            android:accessibilityHeading="true"
             android:textAppearance="?attr/textAppearanceTitleLarge"
             android:textColor="@color/risk" />
 
@@ -64,7 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Pick another file" />
+            android:text="@string/import_pick_another_file" />
     </LinearLayout>
 
     <!-- Review before saving -->
@@ -96,7 +97,7 @@
                         style="@style/ReviewHeading"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Report" />
+                        android:text="@string/import_report" />
 
                     <TextView
                         android:id="@+id/txt_report"
@@ -121,7 +122,7 @@
                         style="@style/ReviewHeading"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Rows" />
+                        android:text="@string/import_rows" />
 
                     <TextView
                         android:id="@+id/txt_rows"
@@ -185,7 +186,7 @@
                         style="@style/ReviewHeading"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="What saving will do" />
+                        android:text="@string/import_what_saving_will_do" />
 
                     <TextView
                         android:id="@+id/txt_effect"
@@ -212,13 +213,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="12dp"
-            android:text="Cancel" />
+            android:text="@string/import_cancel" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Save" />
+            android:text="@string/import_save" />
     </LinearLayout>
 
 </LinearLayout>

@@ -1,10 +1,13 @@
 package io.github.fortunatechick.attendease;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.core.view.ViewCompat;
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -115,10 +118,10 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
             overall.setText(s.displayText());
             overall.setTextColor(color);
-            Formats.tintChip(chip, Formats.standingLabel(s.standing()), color);
+            Formats.tintChip(chip, Formats.standingLabel(itemView.getContext(), s.standing()), color);
 
-            String text = "Overall attendance · target " + s.thresholdPercent + "%";
-            if (s.hasPending()) text += "\n" + s.pendingText();
+            String text = itemView.getContext().getString(R.string.dashboard_overall_caption, s.thresholdPercent);
+            if (s.hasPending()) text += "\n" + Formats.pending(itemView.getContext(), s);
             caption.setText(text);
 
             progress.setProgressCompat(progressValue(s), false);
@@ -155,29 +158,32 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             int color = Formats.standingColor(itemView.getContext(), s.standing());
 
             name.setText(row.subject.displayName());
-            Formats.tintChip(chip, Formats.standingLabel(s.standing()), color);
+            Context context = itemView.getContext();
+            Formats.tintChip(chip, Formats.standingLabel(context, s.standing()), color);
             percent.setText(s.displayText());
             percent.setTextColor(color);
-            counts.setText(s.decidedAttended() + " / " + s.decidedHeld() + " · missed " + s.missed());
+            counts.setText(context.getString(R.string.dashboard_counts, s.decidedAttended(), s.decidedHeld(), s.missed()));
             progress.setProgressCompat(progressValue(s), false);
             progress.setIndicatorColor(color);
 
             SemesterBudget b = row.budget;
             if (b != null) {
-                advice.setText(b.adviceText());
-                advice.setTextColor(Formats.budgetColor(itemView.getContext(), b));
-                semester.setText(b.summaryText());
+                advice.setText(Formats.budgetAdvice(context, b));
+                advice.setTextColor(Formats.budgetColor(context, b));
+                semester.setText(Formats.budgetSummary(context, b));
                 semester.setVisibility(View.VISIBLE);
             } else {
                 // Without a weekly pattern there is no semester total; fall back to the running figure.
-                advice.setText(s.hasData() ? s.advice().text() : "No lectures marked yet");
+                advice.setText(s.hasData() ? Formats.advice(context, s.advice()) : Formats.noLecturesMarked(context));
                 advice.setTextColor(color);
                 semester.setVisibility(View.GONE);
             }
-            pending.setText(s.pendingText());
+            pending.setText(Formats.pending(context, s));
             pending.setVisibility(s.hasPending() ? View.VISIBLE : View.GONE);
 
             itemView.setOnClickListener(v -> onSubjectClick.accept(row.subject));
+            ViewCompat.replaceAccessibilityAction(itemView, AccessibilityNodeInfoCompat.AccessibilityActionCompat.ACTION_CLICK,
+                    context.getString(R.string.a11y_open_subject), null);
         }
     }
 

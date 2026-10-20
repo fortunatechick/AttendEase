@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:gravity="center"
-        android:text="Pick a subject to see its lectures"
+        android:text="@string/placeholder_pick_a_subject_to_see"
         android:textAppearance="?attr/textAppearanceTitleMedium"
         android:textColor="?attr/colorOnSurfaceVariant" />
 </LinearLayout>

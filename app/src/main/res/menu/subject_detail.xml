@@ -5,27 +5,27 @@
     <item
         android:id="@+id/action_add_lecture"
         android:icon="@drawable/ic_add"
-        android:title="Add lecture"
+        android:title="@string/menu_subject_detail_add_lecture"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/action_weekly"
-        android:title="Lectures per week"
+        android:title="@string/menu_subject_detail_lectures_per_week"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_merge"
-        android:title="Merge into another subject"
+        android:title="@string/menu_subject_detail_merge_into_another_subject"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_delete_subject"
-        android:title="Delete subject"
+        android:title="@string/menu_subject_detail_delete_subject"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_rename"
-        android:title="Rename subject"
+        android:title="@string/menu_subject_detail_rename_subject"
         app:showAsAction="never" />
 
 </menu>

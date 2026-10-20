@@ -28,7 +28,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:text="Lectures"
+        android:text="@string/detail_header_lectures"
+        android:accessibilityHeading="true"
         android:textAppearance="?attr/textAppearanceTitleMedium" />
 
     <HorizontalScrollView
@@ -50,35 +51,35 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                android:text="All" />
+                android:text="@string/detail_header_all" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_present"
                 style="@style/Widget.Material3.Chip.Filter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Present" />
+                android:text="@string/detail_header_present" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_absent"
                 style="@style/Widget.Material3.Chip.Filter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Absent" />
+                android:text="@string/detail_header_absent" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_pending"
                 style="@style/Widget.Material3.Chip.Filter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Pending" />
+                android:text="@string/detail_header_pending" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_not_updated"
                 style="@style/Widget.Material3.Chip.Filter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Not updated" />
+                android:text="@string/detail_header_not_updated" />
         </com.google.android.material.chip.ChipGroup>
     </HorizontalScrollView>
 
@@ -87,7 +88,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
-        android:text="Long-press a lecture to change its status or mark a medical leave."
+        android:text="@string/detail_header_long_press_a_lecture_to"
         android:textAppearance="?attr/textAppearanceBodySmall" />
 
 </LinearLayout>

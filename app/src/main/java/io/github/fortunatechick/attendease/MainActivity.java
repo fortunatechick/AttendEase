@@ -71,10 +71,8 @@ public class MainActivity extends BaseActivity {
         boolean guest = GuestMode.isActive(this);
         findViewById(R.id.guest_banner).setVisibility(guest ? View.VISIBLE : View.GONE);
         if (guest) {
-            ((TextView) findViewById(R.id.txt_empty_title)).setText("Guest mode");
-            ((TextView) findViewById(R.id.txt_empty_body)).setText(
-                    "Upload your friend's attendance PDF to see their figures. It's kept apart from "
-                            + "this phone owner's data and erased when guest mode ends.");
+            ((TextView) findViewById(R.id.txt_empty_title)).setText(R.string.menu_main_guest_mode);
+            ((TextView) findViewById(R.id.txt_empty_body)).setText(R.string.guest_empty_body);
             findViewById(R.id.btn_add_subject).setVisibility(View.GONE);
         }
     }
@@ -160,11 +158,11 @@ public class MainActivity extends BaseActivity {
             }
             // One short line: "1 over limit · 2 near limit · PDF to 11.10.2026"
             List<String> parts = new ArrayList<>();
-            if (over > 0) parts.add(over + " over limit");
-            if (tight > 0) parts.add(tight + " near limit");
-            if (over == 0 && tight == 0 && !data.rows.isEmpty()) parts.add("All within limit");
-            if (notUpdated > 0) parts.add(notUpdated + " not marked yet");
-            if (prefs.dataUpTo(semesterId) != null) parts.add("PDF to " + prefs.dataUpTo(semesterId));
+            if (over > 0) parts.add(getString(R.string.footnote_over_limit, over));
+            if (tight > 0) parts.add(getString(R.string.footnote_near_limit, tight));
+            if (over == 0 && tight == 0 && !data.rows.isEmpty()) parts.add(getString(R.string.footnote_all_within));
+            if (notUpdated > 0) parts.add(getString(R.string.footnote_not_marked, notUpdated));
+            if (prefs.dataUpTo(semesterId) != null) parts.add(getString(R.string.footnote_pdf_to, prefs.dataUpTo(semesterId)));
             data.header.footnote = parts.isEmpty() ? null : android.text.TextUtils.join(" · ", parts);
             return data;
         }, data -> {
@@ -181,17 +179,17 @@ public class MainActivity extends BaseActivity {
     private void showAddSubjectDialog() {
         EditText input = new EditText(this);
         input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_WORDS);
-        input.setHint("e.g. Operating Systems");
+        input.setHint(R.string.add_subject_hint);
         FrameLayout box = new FrameLayout(this);
         int pad = Math.round(20 * getResources().getDisplayMetrics().density);
         box.setPadding(pad, pad / 2, pad, 0);
         box.addView(input);
 
         new MaterialAlertDialogBuilder(this)
-                .setTitle("Add subject")
-                .setMessage("Use the name as it appears on the SAP portal so a PDF you upload later joins up with it.")
+                .setTitle(R.string.menu_main_add_subject)
+                .setMessage(R.string.add_subject_message)
                 .setView(box)
-                .setPositiveButton("Add", (d, w) -> {
+                .setPositiveButton(R.string.add_subject_action, (d, w) -> {
                     String name = input.getText().toString().trim().replaceAll("\\s+", " ");
                     if (name.isEmpty()) return;
                     AttendanceRepository repo = new AttendanceRepository(this);
@@ -201,7 +199,7 @@ public class MainActivity extends BaseActivity {
                         return repo.subjects.insert(semester.id, name);
                     }, id -> {
                         if (id < 0) {
-                            Toast.makeText(this, name + " already exists", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this, getString(R.string.add_subject_exists, name), Toast.LENGTH_SHORT).show();
                             return;
                         }
                         Intent intent = new Intent(this, SubjectDetailActivity.class);
@@ -209,7 +207,7 @@ public class MainActivity extends BaseActivity {
                         startActivity(intent);
                     });
                 })
-                .setNegativeButton("Cancel", null)
+                .setNegativeButton(R.string.action_cancel, null)
                 .show();
     }
 
@@ -220,11 +218,11 @@ public class MainActivity extends BaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
-        menu.findItem(R.id.action_guest).setTitle(GuestMode.isActive(this) ? "Exit guest mode" : "Guest mode");
+        menu.findItem(R.id.action_guest).setTitle(GuestMode.isActive(this) ? R.string.guest_exit_menu : R.string.menu_main_guest_mode);
         boolean dark = ThemeMode.isDark(this);
         MenuItem theme = menu.findItem(R.id.action_theme);
         theme.setIcon(dark ? R.drawable.ic_light_mode : R.drawable.ic_dark_mode);
-        theme.setTitle(dark ? "Light mode" : "Dark mode");
+        theme.setTitle(dark ? R.string.theme_light : R.string.menu_main_dark_mode);
         return true;
     }
 
@@ -232,28 +230,25 @@ public class MainActivity extends BaseActivity {
     // blank database; the owner's data is not opened and can't be changed.
     private void confirmEnterGuest() {
         new MaterialAlertDialogBuilder(this)
-                .setTitle("Guest mode")
-                .setMessage("For a friend to check their own attendance on this phone.\n\n"
-                        + "It starts blank: they upload their PDF and see their figures. Your attendance, "
-                        + "leaves and settings stay hidden and untouched. Everything they upload is erased "
-                        + "when guest mode ends.")
-                .setPositiveButton("Start guest mode", (d, w) -> {
+                .setTitle(R.string.menu_main_guest_mode)
+                .setMessage(R.string.guest_enter_message)
+                .setPositiveButton(R.string.guest_start, (d, w) -> {
                     GuestMode.enter(this);
                     restart();
                 })
-                .setNegativeButton("Cancel", null)
+                .setNegativeButton(R.string.action_cancel, null)
                 .show();
     }
 
     private void confirmExitGuest() {
         new MaterialAlertDialogBuilder(this)
-                .setTitle("Exit guest mode?")
-                .setMessage("Your friend's uploaded attendance is erased and your own data comes back.")
-                .setPositiveButton("Exit and erase", (d, w) -> {
+                .setTitle(R.string.guest_exit_title)
+                .setMessage(R.string.guest_exit_message)
+                .setPositiveButton(R.string.guest_exit_action, (d, w) -> {
                     GuestMode.exit(this);
                     restart();
                 })
-                .setNegativeButton("Stay", null)
+                .setNegativeButton(R.string.guest_stay, null)
                 .show();
     }
 

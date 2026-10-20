@@ -56,7 +56,7 @@ public class LeaveDetailActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subject_detail);   // toolbar + list
-        setTitle("Leave request");
+        setTitle(R.string.leave_request_title);
         showBackArrow();
 
         leaveId = getIntent().getLongExtra(EXTRA_LEAVE_ID, -1);
@@ -81,7 +81,7 @@ public class LeaveDetailActivity extends BaseActivity {
         header.findViewById(R.id.btn_save_note).setOnClickListener(v -> {
             String note = ((EditText) header.findViewById(R.id.edit_note)).getText().toString().trim();
             Background.run(() -> leaves.saveNote(leaveId, note),
-                    () -> Toast.makeText(this, "Note saved", Toast.LENGTH_SHORT).show());
+                    () -> Toast.makeText(this, R.string.leave_note_saved, Toast.LENGTH_SHORT).show());
         });
 
         adapter = new LeaveLectureAdapter();
@@ -139,30 +139,29 @@ public class LeaveDetailActivity extends BaseActivity {
 
     private void bindHeader() {
         LeaveRequest r = data.request;
-        ((TextView) header.findViewById(R.id.txt_range)).setText(LeaveFormats.range(r));
-        Formats.tintChip(header.findViewById(R.id.chip_status), LeaveFormats.statusLabel(r.status),
+        ((TextView) header.findViewById(R.id.txt_range)).setText(LeaveFormats.range(this, r));
+        Formats.tintChip(header.findViewById(R.id.chip_status), LeaveFormats.statusLabel(this, r.status),
                 LeaveFormats.statusColor(this, r.status));
 
         StringBuilder info = new StringBuilder();
         if (r.reason != null && !r.reason.isEmpty()) info.append(r.reason).append('\n');
-        info.append("Submitted to ").append(r.submittedToLabel())
-                .append(" on ").append(Formats.date(r.submittedOn)).append('\n');
+        info.append(getString(R.string.leave_submitted_to_on, LeaveFormats.submittedTo(this, r),
+                Formats.date(r.submittedOn))).append('\n');
         int pending = 0, approved = 0, rejected = 0;
         for (String d : data.decisions.values()) {
             if (LeaveRules.APPROVED.equals(d)) approved++;
             else if (LeaveRules.REJECTED.equals(d)) rejected++;
             else pending++;
         }
-        info.append(Formats.plural(data.lectures.size(), "lecture", "lectures"))
-                .append(": ").append(pending).append(" pending, ")
-                .append(approved).append(" approved, ").append(rejected).append(" rejected");
+        info.append(getString(R.string.leave_decision_counts, Formats.lectures(this, data.lectures.size()),
+                pending, approved, rejected));
         ((TextView) header.findViewById(R.id.txt_info)).setText(info.toString());
 
         StringBuilder effect = new StringBuilder();
         for (Map.Entry<String, AttendanceStats> e : data.effect.entrySet()) {
             AttendanceStats s = e.getValue();
             effect.append(e.getKey()).append(": ").append(s.displayText());
-            if (s.hasPending()) effect.append(" (").append(s.pendingText()).append(")");
+            if (s.hasPending()) effect.append(" (").append(Formats.pending(this, s)).append(")");
             effect.append('\n');
         }
         ((TextView) header.findViewById(R.id.txt_effect)).setText(effect.toString().trim());
@@ -202,11 +201,11 @@ public class LeaveDetailActivity extends BaseActivity {
             if (position == 0) return;
             Lecture l = data.lectures.get(position - 1);
             View v = holder.itemView;
-            ((TextView) v.findViewById(R.id.txt_subject)).setText(
-                    data.subjectNames.get(l.subjectId) + " · " + Formats.component(l.component));
-            ((TextView) v.findViewById(R.id.txt_detail)).setText(
-                    Formats.date(l.dateMillis) + ", " + Formats.time(l.startTime)
-                            + " · PDF says " + (l.sourceStatus == null ? "–" : l.sourceStatus));
+            ((TextView) v.findViewById(R.id.txt_subject)).setText(getString(R.string.dot_join,
+                    data.subjectNames.get(l.subjectId), Formats.component(v.getContext(), l.component)));
+            ((TextView) v.findViewById(R.id.txt_detail)).setText(getString(R.string.leave_lecture_detail,
+                    Formats.date(l.dateMillis), Formats.time(l.startTime),
+                    l.sourceStatus == null ? "–" : l.sourceStatus));
 
             MaterialButtonToggleGroup toggle = v.findViewById(R.id.toggle_decision);
             toggle.clearOnButtonCheckedListeners();
@@ -237,13 +236,13 @@ public class LeaveDetailActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_withdraw) {
             new MaterialAlertDialogBuilder(this)
-                    .setTitle("Withdraw this request?")
-                    .setMessage("The request is deleted and every lecture it covered goes back to how it was before.")
-                    .setPositiveButton("Withdraw", (d, w) ->
+                    .setTitle(R.string.leave_withdraw_title)
+                    .setMessage(R.string.leave_withdraw_message)
+                    .setPositiveButton(R.string.leave_withdraw_action, (d, w) ->
                             Background.run(() -> {
                                 leaves.withdraw(leaveId);
                             }, this::finish))
-                    .setNegativeButton("Cancel", null)
+                    .setNegativeButton(R.string.action_cancel, null)
                     .show();
             return true;
         }

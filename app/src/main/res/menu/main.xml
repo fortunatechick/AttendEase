@@ -6,43 +6,43 @@
         android:id="@+id/action_theme"
         android:alphabeticShortcut="d"
         android:icon="@drawable/ic_dark_mode"
-        android:title="Dark mode"
+        android:title="@string/menu_main_dark_mode"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/action_portal"
         android:alphabeticShortcut="p"
-        android:title="SAP portal"
+        android:title="@string/menu_main_sap_portal"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_import"
         android:alphabeticShortcut="o"
-        android:title="Upload attendance PDF"
+        android:title="@string/menu_main_upload_attendance_pdf"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_add_subject"
         android:alphabeticShortcut="n"
-        android:title="Add subject"
+        android:title="@string/menu_main_add_subject"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_leaves"
         android:alphabeticShortcut="l"
-        android:title="Medical leave"
+        android:title="@string/menu_main_medical_leave"
         app:showAsAction="never" />
 
     <!-- Title switches to "Exit guest mode" while it is on -->
     <item
         android:id="@+id/action_guest"
-        android:title="Guest mode"
+        android:title="@string/menu_main_guest_mode"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_settings"
         android:alphabeticShortcut=","
-        android:title="Settings"
+        android:title="@string/menu_main_settings"
         app:showAsAction="never" />
 
 </menu>

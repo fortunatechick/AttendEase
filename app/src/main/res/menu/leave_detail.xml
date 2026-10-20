@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/action_withdraw"
-        android:title="Withdraw request"
+        android:title="@string/menu_leave_detail_withdraw_request"
         app:showAsAction="never" />
 
 </menu>

@@ -1,5 +1,6 @@
 package io.github.fortunatechick.attendease;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -34,7 +35,7 @@ public class LeavesActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leaves);
-        setTitle("Medical leave");
+        setTitle(R.string.menu_main_medical_leave);
         showBackArrow();
 
         empty = findViewById(R.id.txt_empty);
@@ -109,10 +110,11 @@ public class LeavesActivity extends BaseActivity {
 
         void bind(Row row) {
             LeaveRequest r = row.request;
-            range.setText(LeaveFormats.range(r));
-            Formats.tintChip(status, LeaveFormats.statusLabel(r.status), LeaveFormats.statusColor(itemView.getContext(), r.status));
-            lectures.setText(Formats.plural(row.lectureCount, "lecture", "lectures")
-                    + " · submitted to " + r.submittedToLabel());
+            Context context = itemView.getContext();
+            range.setText(LeaveFormats.range(context, r));
+            Formats.tintChip(status, LeaveFormats.statusLabel(context, r.status), LeaveFormats.statusColor(context, r.status));
+            lectures.setText(context.getString(R.string.leaves_row_detail,
+                    Formats.lectures(context, row.lectureCount), LeaveFormats.submittedTo(context, r)));
             subjects.setText(TextUtils.join(", ", row.subjects));
             itemView.setOnClickListener(v -> {
                 Intent intent = new Intent(LeavesActivity.this, LeaveDetailActivity.class);
