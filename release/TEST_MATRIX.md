@@ -18,6 +18,11 @@ AttendEase supports **Android 5.0 (API 21) through Android 16 (API 36)**, one un
 | Rotate tablet to portrait (aspect above 1.4): single pane, back arrow returns, chosen filter chip kept, content centred at 720 dp | Same | Pass |
 | Unfolded-foldable size, 841×700 dp (`wm size 2208x1840`, density 420): two panes | Same | Pass (`docs/devices/foldable-unfolded.png`) |
 | Keyboard: Esc goes back from a subject; Ctrl+O opens the PDF picker | Same, phone size | Pass |
+| Font size 2.0×: dashboard, cards and upload dialog wrap cleanly; count labels shrink to one line | Same | Pass (labels broke mid-word before the fix) |
+| Dark mode: status chips switch to dark text on the lighter colours | Same | Pass |
+| Right-to-left (app language set to Arabic): layout mirrors, dates localised, card titles sit at the start edge | Same | Pass (after aligning titles to `viewStart`) |
+| "Open with" AttendEase from Files: review → save | Same | Pass |
+| Wording check (`WordingInstrumentedTest`): resource sentences match calc's English text | Same | Pass |
 
 ## Not run locally (owner / CI to cover)
 

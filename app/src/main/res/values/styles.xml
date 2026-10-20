@@ -25,9 +25,14 @@
         <item name="android:gravity">center</item>
     </style>
 
+    <!-- One line, shrinking with large font sizes rather than breaking a word in two -->
     <style name="StatLabel">
         <item name="android:textAppearance">?attr/textAppearanceBodySmall</item>
         <item name="android:gravity">center</item>
+        <item name="android:maxLines">1</item>
+        <item name="autoSizeTextType">uniform</item>
+        <item name="autoSizeMinTextSize">8sp</item>
+        <item name="autoSizeMaxTextSize">24sp</item>
     </style>
 
 </resources>
